@@ -14,3 +14,5 @@ Add yourself as a contributor to this project as a Markdown link that links your
 - [Umeh Chiamaka](https://github.com/Amaka202)✨
 
 ## Code of Conduct Contacts
+
+- [Ayu Adiati](https://github.com/adiati98) 🤩
