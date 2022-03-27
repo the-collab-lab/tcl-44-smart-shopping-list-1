@@ -6,6 +6,8 @@ Add yourself as a contributor to this project as a Markdown link that links your
 
 ## Cohort Participants
 
+- [Debbie Dann](https://github.com/hellodeborahuk)
+
 ## Mentors
 
 - [Umeh Chiamaka](https://github.com/Amaka202)✨
