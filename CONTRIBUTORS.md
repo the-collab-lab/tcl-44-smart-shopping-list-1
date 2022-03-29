@@ -13,6 +13,7 @@ Add yourself as a contributor to this project as a Markdown link that links your
 ## Mentors
 
 - [Umeh Chiamaka](https://github.com/Amaka202)✨
+- [Golfo Vasiliou](https://github.com/faysvas) 🐶
 
 ## Code of Conduct Contacts
 
