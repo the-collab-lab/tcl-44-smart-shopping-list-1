@@ -9,6 +9,7 @@ Add yourself as a contributor to this project as a Markdown link that links your
 - [Debbie Dann](https://github.com/hellodeborahuk)
 - [Jimena Miguez](https://github.com/JimeBlue) 🚀
 - [Reda Baha](https://github.com/redapy) 😅
+- [Oluwatobi Oloyede](https://github.com/OloyedeTobi)💅
 
 ## Mentors
 
