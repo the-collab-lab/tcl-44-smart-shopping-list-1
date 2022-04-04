@@ -1,5 +1,5 @@
 const AddItem = () => {
-  return <div>Add Item link</div>;
+  return <div>Add Item </div>;
 };
 
 export default AddItem;
