@@ -1,3 +1,13 @@
 .active {
   font-weight: bold;
 }
+
+.links {
+  list-style: none;
+  display: flex;
+  width: 20%;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 10px;
+  left: 35%;
+}
