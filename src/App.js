@@ -1,24 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { reference } from './lib/firebase';
+import { addDoc, getDocs } from 'firebase/firestore';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 function App() {
+  const [datas, setData] = useState([]);
+  const [newItems, setNewItems] = useState('Item0');
+  const [newItemsID, setNewItemsID] = useState(1);
+
+  const addItem = () => {
+    setNewItems('item' + newItemsID);
+    addDoc(reference, { Item: newItems, id: newItemsID });
+    setNewItemsID((prev) => prev + 1);
+  };
+
+  useEffect(() => {
+    getDocs(reference).then((snapshot) => {
+      setData(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
+  }, []);
+
+  const dataElements = datas.map((data) => (
+    <ul key={data.id}>
+      <li> {data.Item} </li>
+    </ul>
+  ));
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={addItem}>Add list</button>
+      <div>{dataElements}</div>
     </div>
   );
 }
