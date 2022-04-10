@@ -9,9 +9,9 @@ function App() {
   const [newItems, setNewItems] = useState('Item0');
   const [newItemsID, setNewItemsID] = useState(1);
 
-  const addItem = () => {
+  const addItem = async () => {
+    await addDoc(reference, { Item: newItems, id: newItemsID });
     setNewItems('item' + newItemsID);
-    addDoc(reference, { Item: newItems, id: newItemsID });
     setNewItemsID((prev) => prev + 1);
   };
 
