@@ -1,6 +1,6 @@
 import React from 'react';
 import { reference } from './lib/firebase';
-import { addDoc, getDocs } from 'firebase/firestore';
+import { addDoc, onSnapshot } from 'firebase/firestore';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
@@ -16,7 +16,7 @@ function App() {
   };
 
   useEffect(() => {
-    getDocs(reference).then((snapshot) => {
+    onSnapshot(reference, (snapshot) => {
       setData(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     });
   }, []);
