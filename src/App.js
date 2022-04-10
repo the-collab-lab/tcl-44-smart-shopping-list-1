@@ -1,8 +1,15 @@
 import React from 'react';
+
 import { reference } from './lib/firebase';
 import { addDoc, onSnapshot } from 'firebase/firestore';
 import { useState } from 'react';
 import { useEffect } from 'react';
+
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './App.css';
+import AddItem from './components/AddItem';
+import List from './components/List';
+import Navbar from './components/Navbar';
 
 function App() {
   const [datas, setData] = useState([]);
@@ -31,6 +38,14 @@ function App() {
     <div className="App">
       <button onClick={addItem}>Add list</button>
       <div>{dataElements}</div>
+
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/list" element={<List />} />
+          <Route path="/add-items" element={<AddItem />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
