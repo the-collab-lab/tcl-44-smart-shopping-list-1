@@ -10,6 +10,7 @@ import './App.css';
 import AddItem from './components/AddItem';
 import List from './components/List';
 import Navbar from './components/Navbar';
+import Home from './components/Home';
 
 function App() {
   const [datas, setData] = useState([]);
@@ -38,6 +39,7 @@ function App() {
     <div className="App">
       <button onClick={addItem}>Add list</button>
       <div>{dataElements}</div>
+      <Home />
 
       <BrowserRouter>
         <Navbar />
