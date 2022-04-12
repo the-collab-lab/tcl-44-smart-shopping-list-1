@@ -2,15 +2,32 @@ import { useState } from 'react';
 
 const AddItemForm = () => {
   const [timeframe, setTimframe] = useState('soon');
+  const [newItem, setNewItem] = useState("")
+
   const handleSelect = (e) => {
     setTimframe(e.target.value);
   };
+
+  const handleItemAdd = (e) => {
+    setNewItem(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(timeframe);
   };
   return (
     <form onSubmit={handleSubmit}>
+      <legend>Item name:</legend>
+        <input
+          type="text"
+          id="newItem"
+          for="newItem"
+          value={newItem}
+          onChange={handleItemAdd}
+          name="newItem"
+          placeholder='Add Item'
+        />
       <fieldset>
         <legend>How soon will you buy this again ?</legend>
         <input
