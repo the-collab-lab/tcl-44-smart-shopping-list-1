@@ -39,11 +39,11 @@ function App() {
     <div className="App">
       <button onClick={addItem}>Add list</button>
       <div>{dataElements}</div>
-      <Home />
 
       <BrowserRouter>
         <Navbar />
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/list" element={<List />} />
           <Route path="/add-items" element={<AddItem />} />
         </Routes>
