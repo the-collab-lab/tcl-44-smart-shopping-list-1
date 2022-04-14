@@ -1,5 +1,5 @@
 import { getToken } from '@the-collab-lab/shopping-list-utils';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 
 const Home = () => {
   let navigate = useNavigate();
@@ -11,6 +11,10 @@ const Home = () => {
     }
     navigate('/list');
   };
+
+  if (localStorage.getItem('token')) {
+     return <Navigate to="/list" />;
+  }
 
   return (
     <section>
