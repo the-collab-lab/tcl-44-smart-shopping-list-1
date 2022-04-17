@@ -1,6 +1,6 @@
 // NOTE: import only the Firebase modules that you need in your app.
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 
 // Initialize Firebase.
 const firebaseConfig = {
@@ -14,4 +14,3 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
-export const reference = collection(db, 'List1');
