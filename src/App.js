@@ -10,11 +10,13 @@ import './App.css';
 import AddItem from './components/AddItem';
 import List from './components/List';
 import Navbar from './components/Navbar';
+import Home from './components/Home';
 
 function App() {
   const [datas, setData] = useState([]);
   const [newItems, setNewItems] = useState('Item0');
   const [newItemsID, setNewItemsID] = useState(1);
+  const [token, setToken] = useState(localStorage.getItem("token"))
 
   const addItem = async () => {
     await addDoc(reference, { Item: newItems, id: newItemsID });
@@ -40,11 +42,12 @@ function App() {
       <div>{dataElements}</div>
 
       <BrowserRouter>
-        <Navbar />
+        <Navbar token={token} />
         <Routes>
+          <Route path="/" element={<Home setToken={setToken} />} />
           <Route path="/list" element={<List />} />
           <Route path="/add-items" element={<AddItem />} />
-        </Routes>
+         </Routes>
       </BrowserRouter>
     </div>
   );

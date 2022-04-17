@@ -1,6 +1,10 @@
 import { NavLink } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = ({token}) => {
+  if (!token) {
+    return null
+  } else
+
   return (
     <nav>
       <ul className="links">
