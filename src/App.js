@@ -6,9 +6,19 @@ import AddItem from './components/AddItem';
 import List from './components/List';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
+import { useEffect } from 'react';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
+
+  useEffect(() => {
+    const changeToken = () => {
+      console.log('I changed');
+    };
+    window.addEventListener('storage', changeToken);
+
+    return () => window.removeEventListener('storage', changeToken);
+  }, []);
 
   return (
     <div className="App">

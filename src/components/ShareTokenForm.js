@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const ShareTokenForm = () => {
   const [token, setToken] = useState('');
+  const [error, setError] = useState(null);
   let navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -18,8 +19,10 @@ const ShareTokenForm = () => {
     const queryParam = query(docRef, where('token', '==', token));
     const listSnap = await getDocs(queryParam);
     if (listSnap.docs.length === 0) {
-      alert("token doesn't exist");
+      setError('Token does not exist please try again or create a new list');
+      setToken('');
     } else {
+      setError(null);
       navigate('/list');
     }
   };
@@ -35,6 +38,7 @@ const ShareTokenForm = () => {
           value={token}
         />
         <button>Join an existing list</button>
+        <p>{error}</p>
       </label>
     </form>
   );
