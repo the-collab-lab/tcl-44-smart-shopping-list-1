@@ -3,10 +3,8 @@ import { db } from '../lib/firebase';
 import { addDoc, collection } from 'firebase/firestore';
 
 const AddItemForm = () => {
-
   const [timeframe, setTimframe] = useState('7');
   const [newItem, setNewItem] = useState('');
-
 
   const handleSelect = (e) => {
     setTimframe(e.target.value);
@@ -16,12 +14,11 @@ const AddItemForm = () => {
     setNewItem(e.target.value);
   };
 
-
   const addItem = async (
     newItem,
     timeframe,
     lastPurchased = null,
-    token = 'reda and tobi',
+    token = localStorage.getItem('token'),
   ) => {
     const ListRef = collection(db, 'List1');
     await addDoc(ListRef, {
@@ -31,7 +28,6 @@ const AddItemForm = () => {
       token,
     });
   };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
