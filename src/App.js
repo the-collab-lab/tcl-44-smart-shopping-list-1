@@ -8,8 +8,7 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 
 function App() {
-
-  const [token, setToken] = useState(localStorage.getItem("token"))
+  const [token, setToken] = useState(localStorage.getItem('token'));
 
   return (
     <div className="App">
@@ -18,8 +17,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home setToken={setToken} />} />
           <Route path="/list" element={<List />} />
-          <Route path="/add-items" element={<AddItem />} />
-         </Routes>
+          <Route path="/add-items" element={<AddItem token={token} />} />
+        </Routes>
       </BrowserRouter>
     </div>
   );

@@ -2,11 +2,9 @@ import { useState } from 'react';
 import { db } from '../lib/firebase';
 import { addDoc, collection } from 'firebase/firestore';
 
-const AddItemForm = () => {
-
+const AddItemForm = ({ token }) => {
   const [timeframe, setTimframe] = useState('7');
   const [newItem, setNewItem] = useState('');
-
 
   const handleSelect = (e) => {
     setTimframe(e.target.value);
@@ -16,26 +14,19 @@ const AddItemForm = () => {
     setNewItem(e.target.value);
   };
 
-
-  const addItem = async (
-    newItem,
-    timeframe,
-    lastPurchased = null,
-    token = 'reda and tobi',
-  ) => {
+  const addItem = async (newItem, timeframe, token, lastPurchased = null) => {
     const ListRef = collection(db, 'List1');
     await addDoc(ListRef, {
-      Item: newItem,
+      item: newItem,
       timeframe: parseInt(timeframe),
       lastPurchased,
       token,
     });
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    addItem(newItem, timeframe);
+    addItem(newItem, timeframe, token);
   };
   return (
     <form onSubmit={handleSubmit}>
