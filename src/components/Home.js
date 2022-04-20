@@ -1,9 +1,11 @@
 import { getToken } from '@the-collab-lab/shopping-list-utils';
 import { useNavigate, Navigate } from 'react-router-dom';
 import ShareTokenForm from './ShareTokenForm';
+import useToken from '../hooks/useToken';
 
-const Home = ({ setToken }) => {
+const Home = () => {
   let navigate = useNavigate();
+  const { setToken } = useToken();
 
   const createToken = () => {
     const newToken = getToken();

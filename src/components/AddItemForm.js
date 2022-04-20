@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { db } from '../lib/firebase';
 import { addDoc, collection } from 'firebase/firestore';
+import useToken from '../hooks/useToken';
 
-const AddItemForm = ({ token }) => {
+const AddItemForm = () => {
   const [timeframe, setTimframe] = useState('7');
   const [newItem, setNewItem] = useState('');
+  const { token } = useToken();
 
   const handleSelect = (e) => {
     setTimframe(e.target.value);

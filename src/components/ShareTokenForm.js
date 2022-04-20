@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+import useToken from '../hooks/useToken';
 
-const ShareTokenForm = ({ setToken }) => {
+const ShareTokenForm = () => {
   const [error, setError] = useState(null);
   const [selectedToken, setSelectedToken] = useState('');
+  const { setToken } = useToken();
 
   const handleSubmit = (e) => {
     e.preventDefault();
