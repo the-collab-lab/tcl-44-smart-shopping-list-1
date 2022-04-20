@@ -1,29 +1,28 @@
 import { useState } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../lib/firebase';
-import { useNavigate } from 'react-router-dom';
 
-const ShareTokenForm = () => {
-  const [token, setToken] = useState('');
+const ShareTokenForm = ({ setToken }) => {
   const [error, setError] = useState(null);
-  let navigate = useNavigate();
+  const [selectedToken, setSelectedToken] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem('token', token);
     checkIfTokenExists();
   };
 
   const checkIfTokenExists = async () => {
     const docRef = collection(db, 'List1');
-    const queryParam = query(docRef, where('token', '==', token));
+    const queryParam = query(docRef, where('token', '==', selectedToken));
     const listSnap = await getDocs(queryParam);
+
     if (listSnap.docs.length === 0) {
       setError('Token does not exist please try again or create a new list');
-      setToken('');
+      setSelectedToken('');
     } else {
       setError(null);
-      navigate('/list');
+      localStorage.setItem('token', selectedToken);
+      setToken(selectedToken);
     }
   };
 
@@ -34,8 +33,8 @@ const ShareTokenForm = () => {
           type="text"
           id="shareToken"
           placeholder="three word token"
-          onChange={(e) => setToken(e.target.value)}
-          value={token}
+          onChange={(e) => setSelectedToken(e.target.value)}
+          value={selectedToken}
         />
         <button>Join an existing list</button>
         <p>{error}</p>

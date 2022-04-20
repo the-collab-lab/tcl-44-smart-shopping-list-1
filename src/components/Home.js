@@ -23,7 +23,7 @@ const Home = ({ setToken }) => {
       <h1>Welcome to your Smart Shopping List</h1>
       <button onClick={createToken}>Create new List</button>
 
-      <ShareTokenForm />
+      <ShareTokenForm setToken={setToken} />
     </section>
   );
 };
