@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { db } from '../lib/firebase';
 import { addDoc, collection } from 'firebase/firestore';
+import { getGlobalList } from '../utils/GlobalData';
 
 const AddItemForm = () => {
   const [timeframe, setTimframe] = useState('7');
@@ -14,12 +15,30 @@ const AddItemForm = () => {
     setNewItem(e.target.value);
   };
 
+  //Check duplication
+
+  const checkDuplication = (newItem) => {
+    let existingData = getGlobalList();
+
+    let itemExist = false;
+
+    existingData.forEach((object) => {
+      if (newItem === object.Item) {
+        itemExist = true;
+      }
+    });
+    return itemExist;
+  };
+
   const addItem = async (
     newItem,
     timeframe,
     lastPurchased = null,
     token = localStorage.getItem('token'),
   ) => {
+    if (checkDuplication(newItem)) {
+      console.log('item exists');
+    }
     const ListRef = collection(db, 'List1');
     await addDoc(ListRef, {
       Item: newItem,
