@@ -1,12 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { db } from '../lib/firebase';
-import { addDoc, collection } from 'firebase/firestore';
-import { getGlobalList } from '../utils/GlobalData';
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  query,
+  where,
+} from 'firebase/firestore';
 
 const AddItemForm = () => {
+  const [datas, setData] = useState([]);
   const [timeframe, setTimframe] = useState('7');
   const [newItem, setNewItem] = useState('');
   const [message, setMessage] = useState('');
+  const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    const ListRef = collection(db, 'List1');
+    const q = query(ListRef, where('token', '==', token));
+    const unsb = onSnapshot(q, ListRef, (snapshot) => {
+      setData(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
+
+    return () => unsb();
+  }, [token]);
 
   const handleSelect = (e) => {
     setTimframe(e.target.value);
@@ -22,7 +39,7 @@ const AddItemForm = () => {
   //set itemExist to true if duplication and return it
 
   const checkDuplication = (newItem) => {
-    let existingData = getGlobalList();
+    let existingData = datas;
 
     let itemExist = false;
 
