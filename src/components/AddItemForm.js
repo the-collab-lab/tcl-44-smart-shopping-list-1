@@ -6,6 +6,7 @@ import { getGlobalList } from '../utils/GlobalData';
 const AddItemForm = () => {
   const [timeframe, setTimframe] = useState('7');
   const [newItem, setNewItem] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleSelect = (e) => {
     setTimframe(e.target.value);
@@ -15,7 +16,10 @@ const AddItemForm = () => {
     setNewItem(e.target.value);
   };
 
-  //Check duplication
+  //Check for duplication:
+  //get the existing items list from firebase
+  //loop through the existing items list to check if there is a match with current item
+  //set itemExist to true if duplication and return it
 
   const checkDuplication = (newItem) => {
     let existingData = getGlobalList();
@@ -23,11 +27,31 @@ const AddItemForm = () => {
     let itemExist = false;
 
     existingData.forEach((object) => {
-      if (newItem === object.Item) {
+      //Remove punctuation of existing item with regex
+      let existingItem = object.Item;
+      let cleanExistingItem = existingItem.replace(/[\W|_]/g, '');
+
+      //Remove punctuation of current item with regex
+      let currentItem = newItem;
+      let cleanCurrentItem = currentItem.replace(/[\W|_]/g, '');
+
+      //Check for duplication while normalizin capitalization
+      if (cleanCurrentItem.toLowerCase() === cleanExistingItem.toLowerCase()) {
         itemExist = true;
       }
     });
     return itemExist;
+  };
+
+  //Set error message and erase it after 3 sec and focus text input
+  const showErrorMessage = () => {
+    const newItemInput = document.querySelector('#newItem');
+    setMessage('Item already added. Try another one.');
+
+    setTimeout(() => {
+      newItemInput.focus();
+      setMessage('');
+    }, 3000);
   };
 
   const addItem = async (
@@ -36,16 +60,15 @@ const AddItemForm = () => {
     lastPurchased = null,
     token = localStorage.getItem('token'),
   ) => {
-    if (checkDuplication(newItem)) {
-      console.log('item exists');
-    }
     const ListRef = collection(db, 'List1');
-    await addDoc(ListRef, {
-      Item: newItem,
-      timeframe: parseInt(timeframe),
-      lastPurchased,
-      token,
-    });
+    checkDuplication(newItem)
+      ? showErrorMessage()
+      : await addDoc(ListRef, {
+          Item: newItem,
+          timeframe: parseInt(timeframe),
+          lastPurchased,
+          token,
+        });
   };
 
   const handleSubmit = (e) => {
@@ -96,6 +119,7 @@ const AddItemForm = () => {
         <label htmlFor="not-soon">not-Soon</label>
       </fieldset>
       <button>Add item</button>
+      <p>{message}</p>
     </form>
   );
 };

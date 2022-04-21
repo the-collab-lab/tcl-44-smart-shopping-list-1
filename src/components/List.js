@@ -20,7 +20,7 @@ const List = () => {
         id: doc.id,
       }));
 
-      //set list in global
+      //set list in globalData.js
       setGlobalList(existingItemsList);
 
       //set list in this component
@@ -34,7 +34,6 @@ const List = () => {
     return <Navigate to="/" />;
   }
 
-  console.log(datas);
   const dataElements = datas.map((data) => (
     <ul key={data.id}>
       <li> {data.Item} </li>
