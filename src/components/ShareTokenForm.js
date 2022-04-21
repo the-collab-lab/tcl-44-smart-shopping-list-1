@@ -29,20 +29,22 @@ const ShareTokenForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="form">
       <label htmlFor="shareToken">
-        <input
-          type="text"
-          id="shareToken"
-          placeholder="three word token"
-          onChange={(e) => setSelectedToken(e.target.value)}
-          value={selectedToken}
-        />
-        <button>Join an existing list</button>
-        <p>{error}</p>
+        Share token 
       </label>
+      <input
+        type="text"
+        id="shareToken"
+        placeholder="three word token"
+        onChange={(e) => setSelectedToken(e.target.value)}
+        value={selectedToken}
+      />
+      <button>Join an existing list</button>
+      <p>{error}</p>
     </form>
   );
 };
+
 
 export default ShareTokenForm;

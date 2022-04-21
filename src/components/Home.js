@@ -25,6 +25,9 @@ const Home = () => {
       <h1>Welcome to your Smart Shopping List</h1>
       <button onClick={createToken}>Create new List</button>
 
+      <p>- or -</p>
+      <p>Join an existing shopping list by entering a three word token.</p>
+
       <ShareTokenForm setToken={setToken} />
     </section>
   );
