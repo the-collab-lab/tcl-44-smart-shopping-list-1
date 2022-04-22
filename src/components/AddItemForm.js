@@ -40,11 +40,11 @@ const AddItemForm = () => {
   //set itemExists to true if duplication and return it
 
   const checkDuplication = (newItem) => {
-    let existingData = data;
+    let items = data;
 
     let itemExists = false;
 
-    existingData.forEach((itemObject) => {
+    items.forEach((itemObject) => {
       //Remove punctuation of existing item with regex
       let existingItem = itemObject.Item;
       let cleanExistingItem = existingItem.replace(/[\W|_]/g, '');
