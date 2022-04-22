@@ -4,7 +4,7 @@ import { db } from '../lib/firebase';
 import useToken from '../hooks/useToken';
 
 const ShareTokenForm = () => {
-  const [error, setError] = useState(null);
+  const [incorrectTokenError, setincorrectTokenError] = useState(null);
   const [selectedToken, setSelectedToken] = useState('');
   const { setToken } = useToken();
 
@@ -19,10 +19,12 @@ const ShareTokenForm = () => {
     const listSnap = await getDocs(queryParam);
 
     if (listSnap.docs.length === 0) {
-      setError('Token does not exist please try again or create a new list');
+      setincorrectTokenError(
+        'Token does not exist please try again or create a new list',
+      );
       setSelectedToken('');
     } else {
-      setError(null);
+      setincorrectTokenError(null);
       localStorage.setItem('token', selectedToken);
       setToken(selectedToken);
     }
@@ -30,9 +32,7 @@ const ShareTokenForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="form">
-      <label htmlFor="shareToken">
-        Share token 
-      </label>
+      <label htmlFor="shareToken">Share token</label>
       <input
         type="text"
         id="shareToken"
@@ -41,10 +41,9 @@ const ShareTokenForm = () => {
         value={selectedToken}
       />
       <button>Join an existing list</button>
-      <p>{error}</p>
+      {incorrectTokenError && <p>{incorrectTokenError}</p>}
     </form>
   );
 };
-
 
 export default ShareTokenForm;
