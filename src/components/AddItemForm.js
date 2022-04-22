@@ -9,7 +9,7 @@ import {
 } from 'firebase/firestore';
 
 const AddItemForm = () => {
-  const [datas, setData] = useState([]);
+  const [data, setData] = useState([]);
   const [timeframe, setTimframe] = useState('7');
   const [newItem, setNewItem] = useState('');
   const [message, setMessage] = useState('');
@@ -40,7 +40,7 @@ const AddItemForm = () => {
   //set itemExists to true if duplication and return it
 
   const checkDuplication = (newItem) => {
-    let existingData = datas;
+    let existingData = data;
 
     let itemExists = false;
 
