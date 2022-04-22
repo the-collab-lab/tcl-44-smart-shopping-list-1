@@ -37,12 +37,12 @@ const AddItemForm = () => {
   //Check for duplication:
   //get the existing items list from firebase
   //loop through the existing items list to check if there is a match with current item
-  //set itemExist to true if duplication and return it
+  //set itemExists to true if duplication and return it
 
   const checkDuplication = (newItem) => {
     let existingData = datas;
 
-    let itemExist = false;
+    let itemExists = false;
 
     existingData.forEach((object) => {
       //Remove punctuation of existing item with regex
@@ -55,10 +55,10 @@ const AddItemForm = () => {
 
       //Check for duplication while normalizin capitalization
       if (cleanCurrentItem.toLowerCase() === cleanExistingItem.toLowerCase()) {
-        itemExist = true;
+        itemExists = true;
       }
     });
-    return itemExist;
+    return itemExists;
   };
 
   //Set error message and erase it after 3 sec and focus text input
