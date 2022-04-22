@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { db } from '../lib/firebase';
 import {
   addDoc,
@@ -14,6 +14,7 @@ const AddItemForm = () => {
   const [newItem, setNewItem] = useState('');
   const [message, setMessage] = useState('');
   const token = localStorage.getItem('token');
+  const newItemInputRef = useRef(null);
 
   useEffect(() => {
     const ListRef = collection(db, 'List1');
@@ -62,11 +63,10 @@ const AddItemForm = () => {
 
   //Set error message and erase it after 3 sec and focus text input
   const showErrorMessage = () => {
-    const newItemInput = document.querySelector('#newItem');
     setMessage('Item already added. Try another one.');
 
     setTimeout(() => {
-      newItemInput.focus();
+      newItemInputRef.current.focus();
       setMessage('');
     }, 3000);
   };
@@ -103,6 +103,7 @@ const AddItemForm = () => {
         name="newItem"
         placeholder="Add Item"
         required
+        ref={newItemInputRef}
       />
 
       <fieldset>
