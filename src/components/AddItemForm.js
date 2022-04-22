@@ -12,7 +12,7 @@ const AddItemForm = () => {
   const [data, setData] = useState([]);
   const [timeframe, setTimframe] = useState('7');
   const [newItem, setNewItem] = useState('');
-  const [message, setMessage] = useState('');
+  const [duplicateItemMessage, setDuplicateItemMessage] = useState('');
   const token = localStorage.getItem('token');
   const newItemInputRef = useRef(null);
 
@@ -63,11 +63,11 @@ const AddItemForm = () => {
 
   //Set error message and erase it after 3 sec and focus text input
   const showErrorMessage = () => {
-    setMessage('Item already added. Try another one.');
+    setDuplicateItemMessage('Item already added. Try another one.');
 
     setTimeout(() => {
       newItemInputRef.current.focus();
-      setMessage('');
+      setDuplicateItemMessage('');
     }, 3000);
   };
 
@@ -137,7 +137,7 @@ const AddItemForm = () => {
         <label htmlFor="not-soon">not-Soon</label>
       </fieldset>
       <button>Add item</button>
-      <p>{message}</p>
+      <p>{duplicateItemMessage}</p>
     </form>
   );
 };
