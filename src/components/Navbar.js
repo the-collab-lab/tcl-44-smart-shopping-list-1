@@ -1,22 +1,24 @@
 import { NavLink } from 'react-router-dom';
+import useToken from '../hooks/useToken';
 
-const Navbar = ({token}) => {
+const Navbar = () => {
+  const { token } = useToken();
+
   if (!token) {
-    return null
+    return null;
   } else
-
-  return (
-    <nav>
-      <ul className="links">
-        <li>
-          <NavLink to="/list">List</NavLink>
-        </li>
-        <li>
-          <NavLink to="/add-items">add an item</NavLink>
-        </li>
-      </ul>
-    </nav>
-  );
+    return (
+      <nav>
+        <ul className="links">
+          <li>
+            <NavLink to="/list">List</NavLink>
+          </li>
+          <li>
+            <NavLink to="/add-items">add an item</NavLink>
+          </li>
+        </ul>
+      </nav>
+    );
 };
 
 export default Navbar;

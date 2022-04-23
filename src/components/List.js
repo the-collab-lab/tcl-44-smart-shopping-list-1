@@ -3,11 +3,12 @@ import { useState, useEffect } from 'react';
 import { db } from '../lib/firebase';
 import { onSnapshot, collection, query, where } from 'firebase/firestore';
 import { Navigate } from 'react-router-dom';
+import useToken from '../hooks/useToken';
 
 const List = () => {
   const [datas, setData] = useState([]);
 
-  const token = localStorage.getItem('token');
+  const { token } = useToken();
 
   useEffect(() => {
     const ListRef = collection(db, 'List1');
@@ -25,7 +26,7 @@ const List = () => {
 
   const dataElements = datas.map((data) => (
     <ul key={data.id}>
-      <li> {data.Item} </li>
+      <li> {data.item} </li>
     </ul>
   ));
 

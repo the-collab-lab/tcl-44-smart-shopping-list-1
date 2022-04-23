@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import useToken from '../hooks/useToken';
 import { db } from '../lib/firebase';
 import {
   addDoc,
@@ -13,7 +14,7 @@ const AddItemForm = () => {
   const [timeframe, setTimframe] = useState('7');
   const [newItem, setNewItem] = useState('');
   const [duplicateItemMessage, setDuplicateItemMessage] = useState('');
-  const token = localStorage.getItem('token');
+  const { token } = useToken();
   const newItemInputRef = useRef(null);
 
   useEffect(() => {
@@ -46,7 +47,7 @@ const AddItemForm = () => {
 
     items.forEach((itemObject) => {
       //Remove punctuation of existing item with regex
-      let existingItem = itemObject.Item;
+      let existingItem = itemObject.item;
       let cleanExistingItem = existingItem.replace(/[\W|_]/g, '');
 
       //Remove punctuation of current item with regex
@@ -71,17 +72,12 @@ const AddItemForm = () => {
     }, 3000);
   };
 
-  const addItem = async (
-    newItem,
-    timeframe,
-    lastPurchased = null,
-    token = localStorage.getItem('token'),
-  ) => {
+  const addItem = async (newItem, timeframe, token, lastPurchased = null) => {
     const ListRef = collection(db, 'List1');
     checkDuplication(newItem)
       ? showErrorMessage()
       : await addDoc(ListRef, {
-          Item: newItem,
+          item: newItem,
           timeframe: parseInt(timeframe),
           lastPurchased,
           token,
@@ -90,7 +86,7 @@ const AddItemForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addItem(newItem, timeframe);
+    addItem(newItem, timeframe, token);
   };
   return (
     <form onSubmit={handleSubmit}>
