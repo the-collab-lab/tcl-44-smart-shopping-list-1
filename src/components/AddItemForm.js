@@ -1,12 +1,30 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { db } from '../lib/firebase';
-import { addDoc, collection } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  query,
+  where,
+} from 'firebase/firestore';
 
 const AddItemForm = () => {
-
+  const [data, setData] = useState([]);
   const [timeframe, setTimframe] = useState('7');
   const [newItem, setNewItem] = useState('');
+  const [duplicateItemMessage, setDuplicateItemMessage] = useState('');
+  const token = localStorage.getItem('token');
+  const newItemInputRef = useRef(null);
 
+  useEffect(() => {
+    const ListRef = collection(db, 'List1');
+    const q = query(ListRef, where('token', '==', token));
+    const unsb = onSnapshot(q, ListRef, (snapshot) => {
+      setData(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
+
+    return () => unsb();
+  }, [token]);
 
   const handleSelect = (e) => {
     setTimframe(e.target.value);
@@ -16,22 +34,59 @@ const AddItemForm = () => {
     setNewItem(e.target.value);
   };
 
+  //Check for duplication:
+  //get the existing items list from firebase
+  //loop through the existing items list to check if there is a match with current item
+  //set itemExists to true if duplication and return it
+
+  const checkDuplication = (newItem) => {
+    let items = data;
+
+    let itemExists = false;
+
+    items.forEach((itemObject) => {
+      //Remove punctuation of existing item with regex
+      let existingItem = itemObject.Item;
+      let cleanExistingItem = existingItem.replace(/[\W|_]/g, '');
+
+      //Remove punctuation of current item with regex
+      let currentItem = newItem;
+      let cleanCurrentItem = currentItem.replace(/[\W|_]/g, '');
+
+      //Check for duplication while normalizin capitalization
+      if (cleanCurrentItem.toLowerCase() === cleanExistingItem.toLowerCase()) {
+        itemExists = true;
+      }
+    });
+    return itemExists;
+  };
+
+  //Set error message and erase it after 3 sec and focus text input
+  const showErrorMessage = () => {
+    setDuplicateItemMessage('Item already added. Try another one.');
+
+    setTimeout(() => {
+      newItemInputRef.current.focus();
+      setDuplicateItemMessage('');
+    }, 3000);
+  };
 
   const addItem = async (
     newItem,
     timeframe,
     lastPurchased = null,
-    token = 'reda and tobi',
+    token = localStorage.getItem('token'),
   ) => {
     const ListRef = collection(db, 'List1');
-    await addDoc(ListRef, {
-      Item: newItem,
-      timeframe: parseInt(timeframe),
-      lastPurchased,
-      token,
-    });
+    checkDuplication(newItem)
+      ? showErrorMessage()
+      : await addDoc(ListRef, {
+          Item: newItem,
+          timeframe: parseInt(timeframe),
+          lastPurchased,
+          token,
+        });
   };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,6 +103,7 @@ const AddItemForm = () => {
         name="newItem"
         placeholder="Add Item"
         required
+        ref={newItemInputRef}
       />
 
       <fieldset>
@@ -81,6 +137,7 @@ const AddItemForm = () => {
         <label htmlFor="not-soon">not-Soon</label>
       </fieldset>
       <button>Add item</button>
+      <p>{duplicateItemMessage}</p>
     </form>
   );
 };
