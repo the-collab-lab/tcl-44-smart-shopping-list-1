@@ -4,6 +4,7 @@ import { db } from '../lib/firebase';
 import { onSnapshot, collection, query, where } from 'firebase/firestore';
 import { Navigate } from 'react-router-dom';
 import useToken from '../hooks/useToken';
+import ListItem from './ListItem';
 
 const List = () => {
   const [datas, setData] = useState([]);
@@ -26,7 +27,7 @@ const List = () => {
 
   const dataElements = datas.map((data) => (
     <ul key={data.id}>
-      <li> {data.item} </li>
+      <ListItem itemData={data} />
     </ul>
   ));
 
