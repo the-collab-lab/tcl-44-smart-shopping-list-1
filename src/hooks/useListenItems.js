@@ -13,7 +13,7 @@ const useListenItems = () => {
   useEffect(() => {
     setIsLoading(true);
     const ListRef = collection(db, 'List1');
-    const queryParam = query(ListRef, where('token', '=', token));
+    const queryParam = query(ListRef, where('token', '==', token));
     const unsb = onSnapshot(
       queryParam,
       (snapshot) => {

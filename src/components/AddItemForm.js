@@ -1,31 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import useToken from '../hooks/useToken';
 import { db } from '../lib/firebase';
-import {
-  addDoc,
-  collection,
-  onSnapshot,
-  query,
-  where,
-} from 'firebase/firestore';
+import { addDoc, collection } from 'firebase/firestore';
+import useListenItems from '../hooks/useListenItems';
 
 const AddItemForm = () => {
-  const [data, setData] = useState([]);
   const [timeframe, setTimframe] = useState('7');
   const [newItem, setNewItem] = useState('');
   const [duplicateItemMessage, setDuplicateItemMessage] = useState('');
-  const { token } = useToken();
   const newItemInputRef = useRef(null);
-
-  useEffect(() => {
-    const ListRef = collection(db, 'List1');
-    const q = query(ListRef, where('token', '==', token));
-    const unsb = onSnapshot(q, ListRef, (snapshot) => {
-      setData(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    });
-
-    return () => unsb();
-  }, [token]);
+  const { data: items } = useListenItems();
+  const { token } = useToken();
 
   const handleSelect = (e) => {
     setTimframe(e.target.value);
@@ -41,8 +26,6 @@ const AddItemForm = () => {
   //set itemExists to true if duplication and return it
 
   const checkDuplication = (newItem) => {
-    let items = data;
-
     let itemExists = false;
 
     items.forEach((itemObject) => {
