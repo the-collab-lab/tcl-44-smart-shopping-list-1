@@ -5,14 +5,14 @@ import { onSnapshot, collection, query, where } from 'firebase/firestore';
 import useToken from './useToken';
 
 const useListenItems = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [listeningError, setListeningError] = useState(null);
   const { token } = useToken();
 
   useEffect(() => {
     setIsLoading(true);
-    const ListRef = collection(db, 'List1');
+    const ListRef = collection(db, 'Lists');
     const queryParam = query(ListRef, where('token', '==', token));
     const unsb = onSnapshot(
       queryParam,

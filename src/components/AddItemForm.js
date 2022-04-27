@@ -30,7 +30,7 @@ const AddItemForm = () => {
 
     items.forEach((itemObject) => {
       //Remove punctuation of existing item with regex
-      let existingItem = itemObject.item;
+      let existingItem = itemObject.itemName;
       let cleanExistingItem = existingItem.replace(/[\W|_]/g, '');
 
       //Remove punctuation of current item with regex
@@ -56,11 +56,11 @@ const AddItemForm = () => {
   };
 
   const addItem = async (newItem, timeframe, token, lastPurchased = null) => {
-    const ListRef = collection(db, 'List1');
+    const ListRef = collection(db, 'Lists');
     checkDuplication(newItem)
       ? showErrorMessage()
       : await addDoc(ListRef, {
-          item: newItem,
+          itemName: newItem,
           timeframe: parseInt(timeframe),
           lastPurchased,
           token,
