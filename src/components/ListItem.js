@@ -42,7 +42,7 @@ const ListItem = ({ itemData }) => {
     };
 
     return (      
-        <li style={style}><input type="checkbox" id="data.id" disabled={wasPurchasedWithin24Hours()} checked={checked} onChange={handleChange} /><span> {itemData.item}</span> </li>
+        <li style={style}><input type="checkbox" id="data.id" disabled={wasPurchasedWithin24Hours()} checked={checked} onChange={handleChange} /><span> {itemData.itemName}</span> </li>
     );
    
 }
