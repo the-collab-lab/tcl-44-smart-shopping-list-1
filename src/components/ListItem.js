@@ -3,6 +3,11 @@ import { db } from '../lib/firebase';
 import { useEffect, useState } from 'react';
 
 const oneDayInSeconds = 86400;
+
+const style = {
+       listStyleType: 'none',
+       textAlign: 'left'
+}
 const ListItem = ({ itemData }) => {
     const [checked, setChecked] = useState(itemData.lastPurchased !== null)
 
@@ -26,7 +31,7 @@ const ListItem = ({ itemData }) => {
       }, [itemData]);
 
     const handleChange = () => {
-        const docRef = doc(db, "List1", itemData.id)
+        const docRef = doc(db, "Lists", itemData.id)
         if (itemData.lastPurchased === null || (Math.floor(Date.now() / 1000 ) - itemData.lastPurchased.seconds) >= oneDayInSeconds)  {
             updateDoc(docRef, {lastPurchased: new Date()});
             setChecked(true)
@@ -37,7 +42,7 @@ const ListItem = ({ itemData }) => {
     };
 
     return (      
-        <li><input type="checkbox" id="data.id" disabled={wasPurchasedWithin24Hours()} checked={checked} onChange={handleChange} /><span> {itemData.item}</span> </li>
+        <li style={style}><input type="checkbox" id="data.id" disabled={wasPurchasedWithin24Hours()} checked={checked} onChange={handleChange} /><span> {itemData.item}</span> </li>
     );
    
 }

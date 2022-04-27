@@ -12,7 +12,7 @@ const List = () => {
   const { token } = useToken();
 
   useEffect(() => {
-    const ListRef = collection(db, 'List1');
+    const ListRef = collection(db, 'Lists');
     const q = query(ListRef, where('token', '==', token));
     const unsb = onSnapshot(q, ListRef, (snapshot) => {
       setData(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));

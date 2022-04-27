@@ -18,7 +18,7 @@ const AddItemForm = () => {
   const newItemInputRef = useRef(null);
 
   useEffect(() => {
-    const ListRef = collection(db, 'List1');
+    const ListRef = collection(db, 'Lists');
     const q = query(ListRef, where('token', '==', token));
     const unsb = onSnapshot(q, ListRef, (snapshot) => {
       setData(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
@@ -73,11 +73,11 @@ const AddItemForm = () => {
   };
 
   const addItem = async (newItem, timeframe, token, lastPurchased = null) => {
-    const ListRef = collection(db, 'List1');
+    const ListRef = collection(db, 'Lists');
     checkDuplication(newItem)
       ? showErrorMessage()
       : await addDoc(ListRef, {
-          item: newItem,
+          itemName: newItem,
           timeframe: parseInt(timeframe),
           lastPurchased,
           token,
