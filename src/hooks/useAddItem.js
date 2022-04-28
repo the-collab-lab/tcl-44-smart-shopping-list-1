@@ -14,16 +14,16 @@ const useAddItem = (reference) => {
     setIsLoading(true);
     try {
       const ListRef = collection(db, 'Lists');
-      let document;
+      let addedDocument;
       checkDuplication(newItem)
         ? showErrorMessage()
-        : (document = await addDoc(ListRef, {
+        : (addedDocument = await addDoc(ListRef, {
             itemName: newItem,
             timeframe: parseInt(timeframe),
             lastPurchased,
             token,
           }));
-      if (document) {
+      if (addedDocument) {
         setIsLoading(false);
         showSuccesMessage();
         setError(false);
