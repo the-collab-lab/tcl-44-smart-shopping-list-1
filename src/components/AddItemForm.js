@@ -47,7 +47,7 @@ const AddItemForm = () => {
 
     items.forEach((itemObject) => {
       //Remove punctuation of existing item with regex
-      let existingItem = itemObject.item;
+      let existingItem = itemObject.itemName;
       let cleanExistingItem = existingItem.replace(/[\W|_]/g, '');
 
       //Remove punctuation of current item with regex
