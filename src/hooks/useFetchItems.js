@@ -4,7 +4,7 @@ import { db } from '../lib/firebase';
 import { onSnapshot, collection, query, where } from 'firebase/firestore';
 import useToken from './useToken';
 
-const useListenItems = () => {
+const useFetchItems = () => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [listeningError, setListeningError] = useState(null);
@@ -38,4 +38,4 @@ const useListenItems = () => {
   return { data, isLoading, listeningError };
 };
 
-export default useListenItems;
+export default useFetchItems;

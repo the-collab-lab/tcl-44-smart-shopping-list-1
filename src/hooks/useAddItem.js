@@ -1,32 +1,33 @@
 import { useState } from 'react';
 import { db } from '../lib/firebase';
 import { addDoc, collection } from 'firebase/firestore';
-import useListenItems from './useListenItems';
+import useFetchItems from './useFetchItems';
 
 const useAddItem = (reference) => {
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [error, setError] = useState(null);
   const [duplicateItemMessage, setDuplicateItemMessage] = useState('');
-  const { data: items } = useListenItems();
+  const { data: items } = useFetchItems();
 
   const addItem = async (newItem, timeframe, token, lastPurchased = null) => {
     setIsLoading(true);
     try {
       const ListRef = collection(db, 'Lists');
-
+      let document;
       checkDuplication(newItem)
         ? showErrorMessage()
-        : await addDoc(ListRef, {
+        : (document = await addDoc(ListRef, {
             itemName: newItem,
             timeframe: parseInt(timeframe),
             lastPurchased,
             token,
-          });
-
-      setIsLoading(false);
-      showSuccesMessage();
-      setError(false);
+          }));
+      if (document) {
+        setIsLoading(false);
+        showSuccesMessage();
+        setError(false);
+      }
     } catch (e) {
       setError(true);
       setSuccessMessage(null);
@@ -63,6 +64,7 @@ const useAddItem = (reference) => {
 
   //Set error message and erase it after 3 sec and focus text input
   const showErrorMessage = () => {
+    setIsLoading(false);
     setDuplicateItemMessage('Item already added. Try another one.');
 
     setTimeout(() => {

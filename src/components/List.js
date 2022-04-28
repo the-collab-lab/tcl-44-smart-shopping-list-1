@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 
-import useListenItems from '../hooks/useListenItems';
+import useListenItems from '../hooks/useFetchItems';
 import WelcomingPrompt from './WelcomingPrompt';
 
 const List = () => {
