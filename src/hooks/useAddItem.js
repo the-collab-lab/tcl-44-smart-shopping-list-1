@@ -33,6 +33,9 @@ const useAddItem = (reference) => {
     }
   };
 
+  //-------------------------------------------------------------------------------------
+  // HELPER FUNCTIONS
+
   //Check for duplication:
   //get the existing items list from firebase
   //loop through the existing items list to check if there is a match with current item
