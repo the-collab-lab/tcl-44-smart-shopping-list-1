@@ -25,9 +25,7 @@ const ListItem = ({ itemData }) => {
            
         if ((Math.floor(Date.now() / 1000 ) - itemData.lastPurchased.seconds) >= oneDayInSeconds) {
             setChecked(false)
-        } else {
-            setChecked(true)
-        }
+        } 
       }, [itemData]);
 
     const handleChange = () => {
@@ -35,10 +33,8 @@ const ListItem = ({ itemData }) => {
         if (itemData.lastPurchased === null || (Math.floor(Date.now() / 1000 ) - itemData.lastPurchased.seconds) >= oneDayInSeconds)  {
             updateDoc(docRef, {lastPurchased: new Date()});
             setChecked(true)
-        } else {
-            setChecked(false)
-        }
-        console.log(itemData.id)
+        } 
+        console.log(itemData.id)    
     };
 
     return (      
