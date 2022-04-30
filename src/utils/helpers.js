@@ -31,9 +31,8 @@ export const showErrorMessage = (
 ) => {
   setIsLoading(false);
   setDuplicateItemMessage('Item already added. Try another one.');
-
+  reference.current.focus();
   setTimeout(() => {
-    reference.current.focus();
     setDuplicateItemMessage('');
   }, 3000);
 };

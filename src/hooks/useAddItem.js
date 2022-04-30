@@ -7,8 +7,10 @@ import {
   showErrorMessage,
   showSuccessMessage,
 } from '../utils/helpers';
+import { useEffect } from 'react';
 
 const useAddItem = (reference) => {
+  const [isCancelled, setIsCancelled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [error, setError] = useState(null);
@@ -29,7 +31,7 @@ const useAddItem = (reference) => {
           lastPurchased,
           token,
         });
-        if (addedDocument) {
+        if (addedDocument && isCancelled === false) {
           setIsLoading(false);
           showSuccessMessage(reference, setSuccessMessage);
           setError(false);
@@ -41,6 +43,9 @@ const useAddItem = (reference) => {
     }
   };
 
+  useEffect(() => {
+    return () => setIsCancelled(true);
+  }, []);
   return { addItem, isLoading, successMessage, error, duplicateItemMessage };
 };
 
