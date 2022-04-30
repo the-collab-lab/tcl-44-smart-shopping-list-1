@@ -14,7 +14,7 @@ const ShareTokenForm = () => {
   };
 
   const checkIfTokenExists = async () => {
-    const docRef = collection(db, 'List1');
+    const docRef = collection(db, 'Lists');
     const queryParam = query(docRef, where('token', '==', selectedToken));
     const listSnap = await getDocs(queryParam);
 
