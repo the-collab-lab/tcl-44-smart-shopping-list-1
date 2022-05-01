@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-
+import ListItem from "./ListItem"
 import useFetchItems from '../hooks/useFetchItems';
 import WelcomingPrompt from './WelcomingPrompt';
 
@@ -18,7 +18,7 @@ const List = () => {
       {data &&
         data.map((item) => (
           <ul key={item.id}>
-            <li>{item.itemName}</li>
+            <ListItem itemData={item} />
           </ul>
         ))}
     </>
