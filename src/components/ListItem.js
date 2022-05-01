@@ -10,27 +10,29 @@ const style = {
 }
 const ListItem = ({ itemData }) => {
     const [checked, setChecked] = useState(itemData.lastPurchased !== null)
-
+    const nowMinusLastPurchased = () => {
+        return Math.floor(Date.now() / 1000 ) - itemData.lastPurchased.seconds
+    }
     const wasPurchasedWithin24Hours = () => {
         if (itemData.lastPurchased === null) {
             return false
         }
-        return (Math.floor(Date.now() / 1000 ) - itemData.lastPurchased.seconds) <= oneDayInSeconds
+        return nowMinusLastPurchased() <= oneDayInSeconds
     }
 
     useEffect(() => {
         if (itemData.lastPurchased === null) {
             return false
         }
-           
-        if ((Math.floor(Date.now() / 1000 ) - itemData.lastPurchased.seconds) >= oneDayInSeconds) {
+        if (nowMinusLastPurchased() >= oneDayInSeconds) {
             setChecked(false)
         } 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [itemData]);
 
     const handleChange = () => {
         const docRef = doc(db, "Lists", itemData.id)
-        if (itemData.lastPurchased === null || (Math.floor(Date.now() / 1000 ) - itemData.lastPurchased.seconds) >= oneDayInSeconds)  {
+        if (itemData.lastPurchased === null || nowMinusLastPurchased() >= oneDayInSeconds)  {
             updateDoc(docRef, {lastPurchased: new Date()});
             setChecked(true)
         } 
