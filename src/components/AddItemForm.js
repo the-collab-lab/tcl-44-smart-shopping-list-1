@@ -1,31 +1,15 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import useToken from '../hooks/useToken';
-import { db } from '../lib/firebase';
-import {
-  addDoc,
-  collection,
-  onSnapshot,
-  query,
-  where,
-} from 'firebase/firestore';
+import useAddItem from '../hooks/useAddItem';
 
 const AddItemForm = () => {
-  const [data, setData] = useState([]);
   const [timeframe, setTimframe] = useState('7');
   const [newItem, setNewItem] = useState('');
-  const [duplicateItemMessage, setDuplicateItemMessage] = useState('');
-  const { token } = useToken();
   const newItemInputRef = useRef(null);
 
-  useEffect(() => {
-    const ListRef = collection(db, 'Lists');
-    const q = query(ListRef, where('token', '==', token));
-    const unsb = onSnapshot(q, ListRef, (snapshot) => {
-      setData(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    });
-
-    return () => unsb();
-  }, [token]);
+  const { token } = useToken();
+  const { addItem, isLoading, successMessage, error, duplicateItemMessage } =
+    useAddItem(newItemInputRef);
 
   const handleSelect = (e) => {
     setTimframe(e.target.value);
@@ -35,58 +19,10 @@ const AddItemForm = () => {
     setNewItem(e.target.value);
   };
 
-  //Check for duplication:
-  //get the existing items list from firebase
-  //loop through the existing items list to check if there is a match with current item
-  //set itemExists to true if duplication and return it
-
-  const checkDuplication = (newItem) => {
-    let items = data;
-
-    let itemExists = false;
-
-    items.forEach((itemObject) => {
-      //Remove punctuation of existing item with regex
-      let existingItem = itemObject.itemName;
-      let cleanExistingItem = existingItem.replace(/[\W|_]/g, '');
-
-      //Remove punctuation of current item with regex
-      let currentItem = newItem;
-      let cleanCurrentItem = currentItem.replace(/[\W|_]/g, '');
-
-      //Check for duplication while normalizin capitalization
-      if (cleanCurrentItem.toLowerCase() === cleanExistingItem.toLowerCase()) {
-        itemExists = true;
-      }
-    });
-    return itemExists;
-  };
-
-  //Set error message and erase it after 3 sec and focus text input
-  const showErrorMessage = () => {
-    setDuplicateItemMessage('Item already added. Try another one.');
-
-    setTimeout(() => {
-      newItemInputRef.current.focus();
-      setDuplicateItemMessage('');
-    }, 3000);
-  };
-
-  const addItem = async (newItem, timeframe, token, lastPurchased = null) => {
-    const ListRef = collection(db, 'Lists');
-    checkDuplication(newItem)
-      ? showErrorMessage()
-      : await addDoc(ListRef, {
-          itemName: newItem,
-          timeframe: parseInt(timeframe),
-          lastPurchased,
-          token,
-        });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     addItem(newItem, timeframe, token);
+    setNewItem('');
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -132,7 +68,11 @@ const AddItemForm = () => {
         />
         <label htmlFor="not-soon">not-Soon</label>
       </fieldset>
-      <button>Add item</button>
+      <button disabled={isLoading}>
+        {isLoading ? 'adding...' : 'add an item'}
+      </button>
+      {successMessage && <p>{successMessage}</p>}
+      {error && <p>Could not add the item</p>}
       <p>{duplicateItemMessage}</p>
     </form>
   );
