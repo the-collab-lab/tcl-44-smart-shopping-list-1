@@ -1,10 +1,10 @@
 import { Navigate } from 'react-router-dom';
 
-import useListenItems from '../hooks/useFetchItems';
+import useFetchItems from '../hooks/useFetchItems';
 import WelcomingPrompt from './WelcomingPrompt';
 
 const List = () => {
-  const { listeningError, isLoading, data } = useListenItems();
+  const { listeningError, isLoading, data } = useFetchItems();
 
   if (localStorage.getItem('token') === null) {
     return <Navigate to="/" />;

@@ -6,6 +6,7 @@ const AddItemForm = () => {
   const [timeframe, setTimframe] = useState('7');
   const [newItem, setNewItem] = useState('');
   const newItemInputRef = useRef(null);
+
   const { token } = useToken();
   const { addItem, isLoading, successMessage, error, duplicateItemMessage } =
     useAddItem(newItemInputRef);
