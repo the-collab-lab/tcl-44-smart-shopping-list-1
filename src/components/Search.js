@@ -1,19 +1,26 @@
-import React, { useState } from 'react';
 import useFetchItems from '../hooks/useFetchItems';
 
-const Search = () => {
-  const [searchInput, setSearchInput] = useState('');
+const Search = ({
+  searchInput,
+  setSearchInput,
+  filteredResults,
+  setFilteredResults,
+}) => {
   const { data } = useFetchItems();
 
   const searchItems = (searchValue) => {
     setSearchInput(searchValue);
     console.log(searchValue);
     console.log(searchInput);
-
-    const filteredItem = data.filter((item) => {
-      return item.itemName.toLowerCase().includes(searchInput.toLowerCase());
-    });
-    console.log(filteredItem);
+    if (searchInput !== '') {
+      const filteredItem = data.filter((item) => {
+        return item.itemName.toLowerCase().includes(searchInput.toLowerCase());
+      });
+      console.log(filteredItem);
+      setFilteredResults(filteredItem);
+    } else {
+      setFilteredResults(data);
+    }
   };
   return (
     <form action="">
