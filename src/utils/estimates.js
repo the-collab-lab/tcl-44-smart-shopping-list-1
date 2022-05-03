@@ -30,14 +30,14 @@ export const etimatedTime = (item) => {
     return convertSecondsToDays(secondsSinceLastTransaction);
   };
   const daysSinceLastTransaction = calcDaysSinceLastTransaction();
-  console.log(daysSinceLastTransaction);
+
   // pass these arguments to calculate the estimated next purchase
-  const estimate = Math.floor(
+  const estimatedDays = Math.floor(
     calculateEstimate(
       previousEstimate,
       daysSinceLastTransaction,
       totalPurchases,
     ),
   );
-  return estimate;
+  return estimatedDays;
 };

@@ -12,8 +12,8 @@ import { useEffect } from 'react';
 const useAddItem = (reference) => {
   const [isCancelled, setIsCancelled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
   const [duplicateItemMessage, setDuplicateItemMessage] = useState('');
   const { data: items } = useFetchItems();
 
@@ -30,6 +30,8 @@ const useAddItem = (reference) => {
           timeframe: parseInt(timeframe),
           lastPurchased,
           token,
+          totalPurchases: 0,
+          createdAt: new Date(),
         });
         if (addedDocument && isCancelled === false) {
           setIsLoading(false);
