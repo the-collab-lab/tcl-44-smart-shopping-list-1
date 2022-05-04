@@ -31,7 +31,6 @@ const useAddItem = (reference) => {
           lastPurchased,
           token,
           totalPurchases: 0,
-          createdAt: new Date(),
         });
         if (addedDocument && isCancelled === false) {
           setIsLoading(false);
