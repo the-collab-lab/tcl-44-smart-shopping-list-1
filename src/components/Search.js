@@ -1,17 +1,16 @@
 import useFetchItems from '../hooks/useFetchItems';
 
-const Search = ({
-  searchInput,
-  setSearchInput,
-  filteredResults,
-  setFilteredResults,
-}) => {
+const Search = ({ searchInput, setSearchInput, setFilteredResults }) => {
   const { data } = useFetchItems();
+
+  //Get list of items from firebase
+  //Get value from search input
+  //Filter list of items from firebase to see if they include the value from search input
+  //Set filtered item to filteredResults state if searchInput is not empty,
+  //otherwise set items list from firebase to filteredResults
 
   const searchItems = (searchValue) => {
     setSearchInput(searchValue);
-    console.log(searchValue);
-    console.log(searchInput);
     if (searchInput !== '') {
       const filteredItem = data.filter((item) => {
         return item.itemName.toLowerCase().includes(searchInput.toLowerCase());
@@ -22,17 +21,24 @@ const Search = ({
       setFilteredResults(data);
     }
   };
+
+  //Conditionally render the form to prevent it from showing when the list is empty
   return (
-    <form action="">
-      <label htmlFor="search-input">Filter Items</label>
-      <input
-        type="text"
-        placeholder="Start typing here..."
-        name="search-input"
-        id="search-input"
-        onChange={(e) => searchItems(e.target.value)}
-      />
-    </form>
+    <>
+      {data && data.length !== 0 && (
+        <form>
+          <label htmlFor="search-input">Filter Items</label>
+          <br />
+          <input
+            type="search"
+            placeholder="Start typing here..."
+            name="search-input"
+            id="search-input"
+            onChange={(e) => searchItems(e.target.value)}
+          />
+        </form>
+      )}
+    </>
   );
 };
 

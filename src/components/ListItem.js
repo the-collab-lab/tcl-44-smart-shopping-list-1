@@ -39,21 +39,9 @@ const ListItem = ({ itemData, filteredResults, searchInput }) => {
       updateDoc(docRef, { lastPurchased: new Date() });
       setChecked(true);
     }
-    console.log(itemData.id);
   };
 
-  return searchInput.length > 1 ? (
-    <li style={style}>
-      <input
-        type="checkbox"
-        id="data.id"
-        disabled={wasPurchasedWithin24Hours()}
-        checked={checked}
-        onChange={handleChange}
-      />
-      <span> {filteredResults.itemName}</span>{' '}
-    </li>
-  ) : (
+  return (
     <li style={style}>
       <input
         type="checkbox"

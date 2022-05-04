@@ -14,25 +14,33 @@ const List = () => {
     return <Navigate to="/" />;
   }
 
+  //Use conditional rendering to render either the filered items or the items list from firebase
+  //If searchInput.length === 0 map data and send each item data to the ListItem component
+  //If searchInput.length > 1 map filteredResults and send each item data to the ListItem component
+
   return (
     <>
       {listeningError && <p>{listeningError}</p>}
       {isLoading && <p>loading...</p>}
       {data && data.length === 0 && <WelcomingPrompt />}
       <Search
-        searchInput={searchInput}
-        setSearchInput={setSearchInput}
-        filteredResults={filteredResults}
         setFilteredResults={setFilteredResults}
+        setSearchInput={setSearchInput}
+        searchInput={searchInput}
       />
       {data &&
+        searchInput.length === 0 &&
         data.map((item) => (
           <ul key={item.id}>
-            <ListItem
-              itemData={item}
-              searchInput={searchInput}
-              filteredResults={filteredResults}
-            />
+            <ListItem itemData={item} />
+          </ul>
+        ))}
+
+      {data &&
+        searchInput.length > 1 &&
+        filteredResults.map((item) => (
+          <ul key={item.id}>
+            <ListItem itemData={item} />
           </ul>
         ))}
     </>
