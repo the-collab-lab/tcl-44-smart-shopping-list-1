@@ -18,7 +18,7 @@ const List = () => {
       {listeningError && <p>{listeningError}</p>}
       {isLoading && <p>loading...</p>}
       {data && data.length === 0 && <WelcomingPrompt />}
-      <Search setSearchTerm={setSearchTerm} />
+      {data && data.length !== 0 && <Search setSearchTerm={setSearchTerm} />}
 
       {data &&
         data

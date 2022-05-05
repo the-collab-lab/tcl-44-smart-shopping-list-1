@@ -8,7 +8,7 @@ const style = {
   listStyleType: 'none',
   textAlign: 'left',
 };
-const ListItem = ({ itemData, filteredResults, searchInput }) => {
+const ListItem = ({ itemData }) => {
   const [checked, setChecked] = useState(itemData.lastPurchased !== null);
   const nowMinusLastPurchased = () => {
     return Math.floor(Date.now() / 1000) - itemData.lastPurchased.seconds;
