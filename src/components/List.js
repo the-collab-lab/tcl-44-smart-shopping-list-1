@@ -1,10 +1,13 @@
 import { Navigate } from 'react-router-dom';
-import ListItem from "./ListItem"
+import ListItem from './ListItem';
 import useFetchItems from '../hooks/useFetchItems';
 import WelcomingPrompt from './WelcomingPrompt';
+import Search from './Search';
+import { useState } from 'react';
 
 const List = () => {
   const { listeningError, isLoading, data } = useFetchItems();
+  const [searchTerm, setSearchTerm] = useState('');
 
   if (localStorage.getItem('token') === null) {
     return <Navigate to="/" />;
@@ -15,12 +18,20 @@ const List = () => {
       {listeningError && <p>{listeningError}</p>}
       {isLoading && <p>loading...</p>}
       {data && data.length === 0 && <WelcomingPrompt />}
+      {data && data.length !== 0 && <Search setSearchTerm={setSearchTerm} />}
+
       {data &&
-        data.map((item) => (
-          <ul key={item.id}>
-            <ListItem itemData={item} />
-          </ul>
-        ))}
+        data
+          .filter((item) => {
+            return item.itemName
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase());
+          })
+          .map((item) => (
+            <ul key={item.id}>
+              <ListItem itemData={item} />
+            </ul>
+          ))}
     </>
   );
 };
