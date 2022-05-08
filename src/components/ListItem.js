@@ -1,7 +1,7 @@
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { useEffect, useState } from 'react';
-import { getEtimatedNextPurchaseDay } from '../utils/estimates';
+import { estimate } from '../utils/estimates';
 
 const oneDayInSeconds = 86400;
 
@@ -39,7 +39,7 @@ const ListItem = ({ itemData }) => {
     ) {
       updateDoc(docRef, {
         lastPurchased: new Date(),
-        timeframe: getEtimatedNextPurchaseDay(itemData),
+        timeframe: estimate(itemData),
         totalPurchases: itemData.totalPurchases + 1,
       });
       setChecked(true);

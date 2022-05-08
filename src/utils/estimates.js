@@ -1,9 +1,10 @@
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 
-export const getEtimatedNextPurchaseDay = (item) => {
+export const estimate = (item) => {
+  const dayInSeconds = 86400;
   //function to convert seconds to days
   const convertSecondsToDays = (seconds) => {
-    return seconds / 86400;
+    return seconds / dayInSeconds;
   };
   //calculate the current date in seconds
   const CalcCurrentDateInSeconds = () => {
@@ -32,12 +33,12 @@ export const getEtimatedNextPurchaseDay = (item) => {
   const daysSinceLastTransaction = getDaysSinceLastTransaction();
 
   // pass these arguments to calculate the estimated next purchase in days
-  const estimatedDays = Math.floor(
+
+  return Math.floor(
     calculateEstimate(
       previousEstimate,
       daysSinceLastTransaction,
       totalPurchases,
     ),
   );
-  return estimatedDays;
 };
