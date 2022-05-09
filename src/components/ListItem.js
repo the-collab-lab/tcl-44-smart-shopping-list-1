@@ -1,19 +1,24 @@
+import { useEffect, useState } from 'react';
+//firebase
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
-import { useEffect, useState } from 'react';
+//utils
 import { estimate } from '../utils/estimates';
-
-const oneDayInSeconds = 86400;
+import { calcCurrentDateInSeconds, oneDayInSeconds } from '../utils/constants';
 
 const style = {
   listStyleType: 'none',
   textAlign: 'left',
 };
-const ListItem = ({ itemData }) => {
+
+const ListItem = ({ itemData, color }) => {
   const [checked, setChecked] = useState(itemData.lastPurchased !== null);
   const nowMinusLastPurchased = () => {
-    return Math.floor(Date.now() / 1000) - itemData.lastPurchased.seconds;
+    return (
+      Math.floor(calcCurrentDateInSeconds()) - itemData.lastPurchased.seconds
+    );
   };
+
   const wasPurchasedWithin24Hours = () => {
     if (itemData.lastPurchased === null) {
       return false;
@@ -28,8 +33,19 @@ const ListItem = ({ itemData }) => {
     if (nowMinusLastPurchased() >= oneDayInSeconds) {
       setChecked(false);
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemData]);
+
+  const getItemCategory = () => {
+    const timeframe = itemData.timeframe;
+    let color;
+    if (timeframe < 7) color = 'green';
+    if (timeframe <= 30 && timeframe >= 7) color = 'yellow';
+    if (timeframe > 30) color = 'red';
+
+    return color;
+  };
 
   const handleChange = () => {
     const docRef = doc(db, 'Lists', itemData.id);
@@ -49,6 +65,7 @@ const ListItem = ({ itemData }) => {
   return (
     <li style={style}>
       <input
+        style={{ borderColor: getItemCategory() }}
         type="checkbox"
         id="data.id"
         disabled={wasPurchasedWithin24Hours()}
