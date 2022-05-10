@@ -4,14 +4,18 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 //utils
 import { estimate } from '../utils/estimates';
-import { calcCurrentDateInSeconds, oneDayInSeconds } from '../utils/constants';
+import {
+  calcCurrentDateInSeconds,
+  oneDayInSeconds,
+  getDaysSinceLastTransaction,
+} from '../utils/constants';
 
 const style = {
   listStyleType: 'none',
   textAlign: 'left',
 };
 
-const ListItem = ({ itemData, color }) => {
+const ListItem = ({ itemData }) => {
   const [checked, setChecked] = useState(itemData.lastPurchased !== null);
   const nowMinusLastPurchased = () => {
     return (
@@ -38,13 +42,12 @@ const ListItem = ({ itemData, color }) => {
   }, [itemData]);
 
   const getItemCategory = () => {
+    const daysSinceLastTransaction = getDaysSinceLastTransaction(itemData);
     const timeframe = itemData.timeframe;
-    let color;
-    if (timeframe < 7) color = 'green';
-    if (timeframe <= 30 && timeframe >= 7) color = 'yellow';
-    if (timeframe > 30) color = 'red';
-
-    return color;
+    if (daysSinceLastTransaction > timeframe * 2) return 'category-inactive';
+    if (timeframe < 7) return 'category-soon';
+    if (timeframe <= 30 && timeframe >= 7) return 'category-kind-of-soon';
+    if (timeframe > 30) return 'category-not-soon';
   };
 
   const handleChange = () => {
@@ -64,15 +67,18 @@ const ListItem = ({ itemData, color }) => {
 
   return (
     <li style={style}>
-      <input
-        style={{ borderColor: getItemCategory() }}
-        type="checkbox"
-        id="data.id"
-        disabled={wasPurchasedWithin24Hours()}
-        checked={checked}
-        onChange={handleChange}
-      />
-      <span> {itemData.itemName}</span>{' '}
+      <label htmlFor={itemData.id} className="for-checkbox">
+        <input
+          aria-label={getItemCategory()}
+          className={getItemCategory()}
+          type="checkbox"
+          id={itemData.id}
+          disabled={wasPurchasedWithin24Hours()}
+          checked={checked}
+          onChange={handleChange}
+        />
+        <span> {itemData.itemName}</span>{' '}
+      </label>
     </li>
   );
 };
