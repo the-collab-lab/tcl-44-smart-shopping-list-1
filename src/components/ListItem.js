@@ -8,7 +8,7 @@ import {
   calcCurrentDateInSeconds,
   oneDayInSeconds,
   getDaysSinceLastTransaction,
-} from '../utils/constants';
+} from '../utils/dateHelpers';
 
 const style = {
   listStyleType: 'none',

@@ -1,5 +1,5 @@
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
-import { getDaysSinceLastTransaction } from './constants';
+import { getDaysSinceLastTransaction } from './dateHelpers';
 
 export const estimate = (item) => {
   // previous estimated purchase time that has been calculated before
