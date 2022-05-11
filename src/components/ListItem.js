@@ -43,8 +43,10 @@ const ListItem = ({ itemData }) => {
 
   const getItemCategory = () => {
     const daysSinceLastTransaction = getDaysSinceLastTransaction(itemData);
-    const timeframe = itemData.timeframe;
-    if (daysSinceLastTransaction > timeframe * 2) return 'category-inactive';
+    const { timeframe, totalPurchases } = itemData;
+
+    if (totalPurchases === 1 || daysSinceLastTransaction > timeframe * 2)
+      return 'category-inactive';
     if (timeframe < 7) return 'category-soon';
     if (timeframe <= 30 && timeframe >= 7) return 'category-kind-of-soon';
     if (timeframe > 30) return 'category-not-soon';
