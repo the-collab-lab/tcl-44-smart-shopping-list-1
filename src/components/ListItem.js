@@ -1,4 +1,4 @@
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc, deleteDoc} from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { useEffect, useState } from 'react';
 import { estimate } from '../utils/estimates';
@@ -11,6 +11,7 @@ const style = {
 };
 const ListItem = ({ itemData }) => {
   const [checked, setChecked] = useState(itemData.lastPurchased !== null);
+
   const nowMinusLastPurchased = () => {
     return Math.floor(Date.now() / 1000) - itemData.lastPurchased.seconds;
   };
@@ -31,6 +32,17 @@ const ListItem = ({ itemData }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemData]);
 
+
+  //to delete items
+ const deleteItem = async() =>{
+     if(window.confirm("Are you sure you want to delete this item?")){
+        await deleteDoc(doc(db, "Lists", itemData.id));
+     }
+     else{
+         console.log("no")
+     }
+ }
+
   const handleChange = () => {
     const docRef = doc(db, 'Lists', itemData.id);
     if (
@@ -47,6 +59,7 @@ const ListItem = ({ itemData }) => {
   };
 
   return (
+      <>
     <li style={style}>
       <input
         type="checkbox"
@@ -56,7 +69,9 @@ const ListItem = ({ itemData }) => {
         onChange={handleChange}
       />
       <span> {itemData.itemName}</span>{' '}
+      <button onClick={deleteItem}>delete item</button>
     </li>
+ </>
   );
 };
 
