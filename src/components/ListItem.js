@@ -38,13 +38,19 @@ const ListItem = ({ itemData }) => {
       setChecked(false);
     }
 
+    if (getDaysSinceLastTransaction(itemData) > itemData.timeframe * 2) {
+      const docRef = doc(db, 'Lists', itemData.id);
+      updateDoc(docRef, {
+        isActive: false,
+      });
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemData]);
 
   const getItemCategory = () => {
     const daysSinceLastTransaction = getDaysSinceLastTransaction(itemData);
     const timeframe = itemData.timeframe;
-
     if (daysSinceLastTransaction > timeframe * 2) return 'category-inactive';
     if (timeframe < 7) return 'category-soon';
     if (timeframe <= 30 && timeframe >= 7) return 'category-kind-of-soon';

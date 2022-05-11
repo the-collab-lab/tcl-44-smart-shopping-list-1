@@ -22,6 +22,7 @@ const useFetchItems = () => {
     const queryParam = query(
       ListRef,
       where('token', '==', token),
+      orderBy('isActive', 'desc'),
       orderBy('timeframe'),
       orderBy('itemName'),
     );
