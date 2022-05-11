@@ -70,7 +70,3 @@ input[type='checkbox'].category-inactive::before,
 input[type='checkbox'].category-inactive::after {
   background-color: #f2f2f2;
 }
-input[type='checkbox']:disabled::before,
-input[type='checkbox']:disabled::after {
-  background-color: #b6b6b6;
-}
