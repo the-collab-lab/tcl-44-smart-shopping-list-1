@@ -1,22 +1,32 @@
+
 import { useEffect, useState } from 'react';
 //firebase
-import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+import { doc, updateDoc, deleteDoc} from 'firebase/firestore';
 //utils
 import { estimate } from '../utils/estimates';
+//react Icons
+import * as VSCicons from 'react-icons/vsc';
+//css
+import '../App.css';
+
 import {
   calcCurrentDateInSeconds,
   oneDayInSeconds,
   getDaysSinceLastTransaction,
 } from '../utils/dateHelpers';
 
+
+
 const style = {
   listStyleType: 'none',
   textAlign: 'left',
 };
 
+
 const ListItem = ({ itemData }) => {
   const [checked, setChecked] = useState(itemData.lastPurchased !== null);
+
   const nowMinusLastPurchased = () => {
     return (
       Math.floor(calcCurrentDateInSeconds()) - itemData.lastPurchased.seconds
@@ -29,6 +39,11 @@ const ListItem = ({ itemData }) => {
     }
     return nowMinusLastPurchased() <= oneDayInSeconds;
   };
+
+
+//doc reference for an item
+  const docRef = doc(db, 'Lists', itemData.id);
+
 
   useEffect(() => {
     if (itemData.lastPurchased === null) {
@@ -48,6 +63,18 @@ const ListItem = ({ itemData }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemData]);
 
+
+
+  //Brings up a confirmation prompt before deleting the item, and if confirmed, deletes the item.
+ const deleteItem = async() =>{
+     if(window.confirm("Are you sure you want to delete this item?")){
+        await deleteDoc(docRef);
+     }
+     else{
+         return
+     }
+ }
+
   const getItemCategory = () => {
     const daysSinceLastTransaction = getDaysSinceLastTransaction(itemData);
     const timeframe = itemData.timeframe;
@@ -57,8 +84,9 @@ const ListItem = ({ itemData }) => {
     if (timeframe > 30) return 'category-not-soon';
   };
 
+
   const handleChange = () => {
-    const docRef = doc(db, 'Lists', itemData.id);
+
     if (
       itemData.lastPurchased === null ||
       nowMinusLastPurchased() >= oneDayInSeconds
@@ -73,6 +101,7 @@ const ListItem = ({ itemData }) => {
   };
 
   return (
+      <>
     <li style={style}>
       <label htmlFor={itemData.id} className="for-checkbox">
         <input
@@ -85,8 +114,12 @@ const ListItem = ({ itemData }) => {
           onChange={handleChange}
         />
         <span> {itemData.itemName}</span>{' '}
+        <span className='deleteIconStyle'>
+        <VSCicons.VscTrash onClick={deleteItem}/>
+      </span>
       </label>
     </li>
+ </>
   );
 };
 

@@ -12,6 +12,16 @@ input {
   margin: 1em auto 0;
 }
 
+
+.deleteIconStyle:hover{
+   color: blue;
+   cursor: pointer;
+}
+
+.deleteIconStyle:active{
+  color: red;
+}
+
 label.for-checkbox {
   display: block;
   cursor: pointer;
