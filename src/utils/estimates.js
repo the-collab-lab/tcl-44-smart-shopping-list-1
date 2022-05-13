@@ -1,36 +1,13 @@
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
+import { getDaysSinceLastTransaction } from './dateHelpers';
 
 export const estimate = (item) => {
-  const dayInSeconds = 86400;
-  //function to convert seconds to days
-  const convertSecondsToDays = (seconds) => {
-    return seconds / dayInSeconds;
-  };
-  //calculate the current date in seconds
-  const CalcCurrentDateInSeconds = () => {
-    return Date.now() / 1000;
-  };
-
-  //calculate how many days has passed since last purchased, or
-  const getDaysSinceLastTransaction = () => {
-    let secondsSinceLastTransaction;
-    //check if the item has a lastPurchased value, if not use when the item was added instead.
-    if (item.lastPurchased) {
-      secondsSinceLastTransaction =
-        CalcCurrentDateInSeconds() - item.lastPurchased.seconds;
-    } else {
-      return item.timeframe;
-    }
-
-    return convertSecondsToDays(secondsSinceLastTransaction);
-  };
-
-  // this the last estimated purchase time that has been calculated before
+  // previous estimated purchase time that has been calculated before
   const previousEstimate = item.timeframe;
   // how many times this item have been purchased
   const totalPurchases = item.totalPurchases;
   // how many days has passed after the last purchase
-  const daysSinceLastTransaction = getDaysSinceLastTransaction();
+  const daysSinceLastTransaction = getDaysSinceLastTransaction(item);
 
   // pass these arguments to calculate the estimated next purchase in days
 

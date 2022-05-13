@@ -1,11 +1,23 @@
-import { doc, updateDoc, deleteDoc} from 'firebase/firestore';
-import { db } from '../lib/firebase';
+
 import { useEffect, useState } from 'react';
+//firebase
+import { db } from '../lib/firebase';
+import { doc, updateDoc, deleteDoc} from 'firebase/firestore';
+//utils
 import { estimate } from '../utils/estimates';
+//react Icons
 import * as VSCicons from 'react-icons/vsc';
+//css
 import '../App.css';
 
 const oneDayInSeconds = 86400;
+
+import {
+  calcCurrentDateInSeconds,
+  oneDayInSeconds,
+  getDaysSinceLastTransaction,
+} from '../utils/dateHelpers';
+
 
 
 const style = {
@@ -18,8 +30,11 @@ const ListItem = ({ itemData }) => {
   const [checked, setChecked] = useState(itemData.lastPurchased !== null);
 
   const nowMinusLastPurchased = () => {
-    return Math.floor(Date.now() / 1000) - itemData.lastPurchased.seconds;
+    return (
+      Math.floor(calcCurrentDateInSeconds()) - itemData.lastPurchased.seconds
+    );
   };
+
   const wasPurchasedWithin24Hours = () => {
     if (itemData.lastPurchased === null) {
       return false;
@@ -39,8 +54,17 @@ const ListItem = ({ itemData }) => {
     if (nowMinusLastPurchased() >= oneDayInSeconds) {
       setChecked(false);
     }
+
+    if (getDaysSinceLastTransaction(itemData) > itemData.timeframe * 2) {
+      const docRef = doc(db, 'Lists', itemData.id);
+      updateDoc(docRef, {
+        isActive: false,
+      });
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemData]);
+
 
 
   //Brings up a confirmation prompt before deleting the item, and if confirmed, deletes the item.
@@ -52,6 +76,16 @@ const ListItem = ({ itemData }) => {
          return
      }
  }
+
+  const getItemCategory = () => {
+    const daysSinceLastTransaction = getDaysSinceLastTransaction(itemData);
+    const timeframe = itemData.timeframe;
+    if (daysSinceLastTransaction > timeframe * 2) return 'category-inactive';
+    if (timeframe < 7) return 'category-soon';
+    if (timeframe <= 30 && timeframe >= 7) return 'category-kind-of-soon';
+    if (timeframe > 30) return 'category-not-soon';
+  };
+
 
   const handleChange = () => {
 
@@ -71,17 +105,21 @@ const ListItem = ({ itemData }) => {
   return (
       <>
     <li style={style}>
-      <input
-        type="checkbox"
-        id="data.id"
-        disabled={wasPurchasedWithin24Hours()}
-        checked={checked}
-        onChange={handleChange}
-      />
-      <span> {itemData.itemName}</span>{' '}
-      <span className='deleteIconStyle'>
-      <VSCicons.VscTrash onClick={deleteItem}/>
+      <label htmlFor={itemData.id} className="for-checkbox">
+        <input
+          aria-label={getItemCategory()}
+          className={getItemCategory()}
+          type="checkbox"
+          id={itemData.id}
+          disabled={wasPurchasedWithin24Hours()}
+          checked={checked}
+          onChange={handleChange}
+        />
+        <span> {itemData.itemName}</span>{' '}
+        <span className='deleteIconStyle'>
+        <VSCicons.VscTrash onClick={deleteItem}/>
       </span>
+      </label>
     </li>
  </>
   );

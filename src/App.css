@@ -12,6 +12,7 @@ input {
   margin: 1em auto 0;
 }
 
+
 .deleteIconStyle:hover{
    color: blue;
    cursor: pointer;
@@ -19,4 +20,63 @@ input {
 
 .deleteIconStyle:active{
   color: red;
+}
+
+label.for-checkbox {
+  display: block;
+  cursor: pointer;
+}
+
+input[type='checkbox'] {
+  position: relative;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  margin-right: 10px;
+}
+
+input[type='checkbox']::before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  border: 1px solid #555555;
+  border-radius: 3px;
+  background-color: white;
+}
+
+input[type='checkbox']:checked:after {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 10px;
+  border: solid black;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  top: 2px;
+  left: 6px;
+}
+
+input[type='checkbox'].category-soon::before {
+  background-color: #ff968a;
+}
+
+input[type='checkbox'].category-kind-of-soon::before {
+  background-color: #ffffbf;
+}
+
+input[type='checkbox'].category-not-soon::before {
+  background-color: #cce2cb;
+}
+
+input[type='checkbox'].category-inactive::before,
+input[type='checkbox'].category-inactive::after {
+  background-color: #f2f2f2;
 }
