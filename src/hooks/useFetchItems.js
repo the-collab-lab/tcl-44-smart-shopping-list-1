@@ -1,7 +1,13 @@
 import { useState, useEffect } from 'react';
 //firebase
 import { db } from '../lib/firebase';
-import { onSnapshot, collection, query, where } from 'firebase/firestore';
+import {
+  onSnapshot,
+  collection,
+  query,
+  where,
+  orderBy,
+} from 'firebase/firestore';
 import useToken from './useToken';
 
 const useFetchItems = () => {
@@ -13,7 +19,13 @@ const useFetchItems = () => {
   useEffect(() => {
     setIsLoading(true);
     const ListRef = collection(db, 'Lists');
-    const queryParam = query(ListRef, where('token', '==', token));
+    const queryParam = query(
+      ListRef,
+      where('token', '==', token),
+      orderBy('isActive', 'desc'),
+      orderBy('timeframe'),
+      orderBy('itemName'),
+    );
     const unsb = onSnapshot(
       queryParam,
       (snapshot) => {
@@ -29,6 +41,7 @@ const useFetchItems = () => {
       (error) => {
         setIsLoading(false);
         setListeningError('could not fetch data');
+        console.log(error.message);
       },
     );
 
