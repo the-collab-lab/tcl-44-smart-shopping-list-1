@@ -10,8 +10,6 @@ import * as VSCicons from 'react-icons/vsc';
 //css
 import '../App.css';
 
-const oneDayInSeconds = 86400;
-
 import {
   calcCurrentDateInSeconds,
   oneDayInSeconds,
