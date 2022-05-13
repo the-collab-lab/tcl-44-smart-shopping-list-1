@@ -2,13 +2,18 @@ import { doc, updateDoc, deleteDoc} from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { useEffect, useState } from 'react';
 import { estimate } from '../utils/estimates';
+import * as VSCicons from 'react-icons/vsc';
+import '../App.css';
 
 const oneDayInSeconds = 86400;
+
 
 const style = {
   listStyleType: 'none',
   textAlign: 'left',
 };
+
+
 const ListItem = ({ itemData }) => {
   const [checked, setChecked] = useState(itemData.lastPurchased !== null);
 
@@ -22,6 +27,11 @@ const ListItem = ({ itemData }) => {
     return nowMinusLastPurchased() <= oneDayInSeconds;
   };
 
+
+//doc reference for an item
+  const docRef = doc(db, 'Lists', itemData.id);
+
+
   useEffect(() => {
     if (itemData.lastPurchased === null) {
       return false;
@@ -33,18 +43,18 @@ const ListItem = ({ itemData }) => {
   }, [itemData]);
 
 
-  //to delete items
+  //Brings up a confirmation prompt before deleting the item, and if confirmed, deletes the item.
  const deleteItem = async() =>{
      if(window.confirm("Are you sure you want to delete this item?")){
-        await deleteDoc(doc(db, "Lists", itemData.id));
+        await deleteDoc(docRef);
      }
      else{
-         console.log("no")
+         return
      }
  }
 
   const handleChange = () => {
-    const docRef = doc(db, 'Lists', itemData.id);
+
     if (
       itemData.lastPurchased === null ||
       nowMinusLastPurchased() >= oneDayInSeconds
@@ -69,7 +79,9 @@ const ListItem = ({ itemData }) => {
         onChange={handleChange}
       />
       <span> {itemData.itemName}</span>{' '}
-      <button onClick={deleteItem}>delete item</button>
+      <span className='deleteIconStyle'>
+      <VSCicons.VscTrash onClick={deleteItem}/>
+      </span>
     </li>
  </>
   );
