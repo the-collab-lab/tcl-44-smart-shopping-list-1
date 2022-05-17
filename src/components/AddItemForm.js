@@ -26,8 +26,11 @@ const AddItemForm = () => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="newItem">Item name:</label>
+      <label className="text-red-500" htmlFor="newItem">
+        Item name:
+      </label>
       <input
+        className="border-black border-2"
         type="text"
         id="newItem"
         value={newItem}
