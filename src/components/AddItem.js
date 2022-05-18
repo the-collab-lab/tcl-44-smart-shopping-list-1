@@ -7,7 +7,7 @@ const AddItem = () => {
   }
   return (
     <>
-      <h2>Add Item </h2>
+      <h2>Add Item</h2>
       <AddItemForm />
     </>
   );
