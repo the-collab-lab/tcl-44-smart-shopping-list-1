@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import useToken from '../hooks/useToken';
 import useAddItem from '../hooks/useAddItem';
+import Button from '../components/Button';
 
 const AddItemForm = () => {
   const [timeframe, setTimframe] = useState('7');
@@ -71,9 +72,9 @@ const AddItemForm = () => {
         />
         <label htmlFor="not-soon">not-Soon</label>
       </fieldset>
-      <button disabled={isLoading}>
-        {isLoading ? 'adding...' : 'add an item'}
-      </button>
+      <p>{duplicateItemMessage}</p>
+      <Button text={isLoading ? 'adding...' : 'add'} disabled={isLoading} />
+
       {successMessage && <p>{successMessage}</p>}
       {error && <p>Could not add the item</p>}
       <p>{duplicateItemMessage}</p>

@@ -2,6 +2,7 @@ import { getToken } from '@the-collab-lab/shopping-list-utils';
 import { useNavigate, Navigate } from 'react-router-dom';
 import ShareTokenForm from './ShareTokenForm';
 import useToken from '../hooks/useToken';
+import Button from '../components/Button';
 
 const Home = () => {
   let navigate = useNavigate();
@@ -23,7 +24,9 @@ const Home = () => {
   return (
     <section>
       <h1>Welcome to your Smart Shopping List</h1>
-      <button onClick={createToken}>Create new List</button>
+      <Button onClick={createToken} text="Create new List" />
+
+      {/* <button onClick={createToken}>Create new List</button> */}
 
       <p>- or -</p>
       <p>Join an existing shopping list by entering a three word token.</p>
