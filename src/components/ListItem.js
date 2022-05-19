@@ -114,10 +114,10 @@ const ListItem = ({ itemData }) => {
           onChange={handleChange}
         />
         <span> {itemData.itemName}</span>{' '}
-        <span className='deleteIconStyle'>
-        <VSCicons.VscTrash onClick={deleteItem}/>
-      </span>
       </label>
+      <button className='deleteIconStyle' onClick={deleteItem}>
+        <VSCicons.VscTrash/>
+      </button>
     </li>
  </>
   );
