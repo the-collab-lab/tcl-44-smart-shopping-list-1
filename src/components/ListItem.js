@@ -16,14 +16,6 @@ import {
   getDaysSinceLastTransaction,
 } from '../utils/dateHelpers';
 
-
-
-const style = {
-  listStyleType: 'none',
-  textAlign: 'left',
-};
-
-
 const ListItem = ({ itemData }) => {
   const [checked, setChecked] = useState(itemData.lastPurchased !== null);
 
@@ -86,7 +78,6 @@ const ListItem = ({ itemData }) => {
 
 
   const handleChange = () => {
-
     if (
       itemData.lastPurchased === null ||
       nowMinusLastPurchased() >= oneDayInSeconds
@@ -102,22 +93,21 @@ const ListItem = ({ itemData }) => {
 
   return (
       <>
-    <li style={style}>
-      <label htmlFor={itemData.id} className="for-checkbox">
+    <li className={`flex items-center justify-between  rounded-2xl w-72 p-3 my-2 ${getItemCategory()}`}>
+      <label htmlFor={itemData.id} className="for-checkbox" >
         <input
           aria-label={getItemCategory()}
-          className={getItemCategory()}
           type="checkbox"
           id={itemData.id}
           disabled={wasPurchasedWithin24Hours()}
           checked={checked}
           onChange={handleChange}
         />
-        <span> {itemData.itemName}</span>{' '}
-        <span className='deleteIconStyle'>
+        <span> {itemData.itemName}</span>
+      </label>
+      <span className='deleteIconStyle'>
         <VSCicons.VscTrash onClick={deleteItem}/>
       </span>
-      </label>
     </li>
  </>
   );

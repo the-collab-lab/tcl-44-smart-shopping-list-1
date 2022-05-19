@@ -30,8 +30,6 @@ label.for-checkbox {
 input[type='checkbox'] {
   position: relative;
   cursor: pointer;
-  width: 16px;
-  height: 16px;
   margin: 0;
   margin-right: 10px;
 }
@@ -64,19 +62,18 @@ input[type='checkbox']:checked:after {
   left: 6px;
 }
 
-input[type='checkbox'].category-soon::before {
-  background-color: #ff968a;
+.category-soon {
+  background-color: #CFFAFE;
 }
 
-input[type='checkbox'].category-kind-of-soon::before {
-  background-color: #ffffbf;
+.category-kind-of-soon {
+  background-color: #DDD6FE;
 }
 
-input[type='checkbox'].category-not-soon::before {
-  background-color: #cce2cb;
+.category-not-soon {
+  background-color: #FEF08A;
 }
 
-input[type='checkbox'].category-inactive::before,
-input[type='checkbox'].category-inactive::after {
-  background-color: #f2f2f2;
+.category-inactive {
+  background-color: #E5E5E5;
 }
