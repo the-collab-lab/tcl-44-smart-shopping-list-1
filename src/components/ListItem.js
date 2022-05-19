@@ -66,8 +66,7 @@ const ListItem = ({ itemData }) => {
 
 
   //Brings up a confirmation prompt before deleting the item, and if confirmed, deletes the item.
- const deleteItem = async(e) =>{
-     e.stopPropagation()
+ const deleteItem = async() =>{
      if(window.confirm("Are you sure you want to delete this item?")){
         await deleteDoc(docRef);
      }
@@ -116,8 +115,8 @@ const ListItem = ({ itemData }) => {
         />
         <span> {itemData.itemName}</span>{' '}
       </label>
-      <button className='deleteIconStyle'>
-        <VSCicons.VscTrash onClick={deleteItem}/>
+      <button className='deleteIconStyle' onClick={deleteItem}>
+        <VSCicons.VscTrash/>
       </button>
     </li>
  </>
