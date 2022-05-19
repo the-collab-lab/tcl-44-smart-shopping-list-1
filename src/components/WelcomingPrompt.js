@@ -6,10 +6,9 @@ const WelcomingPrompt = () => {
     <>
       <p>Welcome to your shoping list. Your list is currenctly empty!</p>
       <p>Please click the button below to add an item.</p>
-      {/* <button>
-        <Link to="/add-item">Add Item</Link>
-      </button> */}
-      <Button text="add" width={'w-40'} />
+      <Link to="/add-item">
+        <Button text="add" width={'w-40'} />
+      </Link>
     </>
   );
 };
