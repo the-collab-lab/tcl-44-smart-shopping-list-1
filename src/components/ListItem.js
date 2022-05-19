@@ -86,6 +86,7 @@ const ListItem = ({ itemData }) => {
         lastPurchased: new Date(),
         timeframe: estimate(itemData),
         totalPurchases: itemData.totalPurchases + 1,
+        isActive: true,
       });
       setChecked(true);
     }
