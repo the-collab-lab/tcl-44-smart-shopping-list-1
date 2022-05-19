@@ -37,6 +37,7 @@ const ShareTokenForm = () => {
     <form onSubmit={handleSubmit} className="form">
       <label htmlFor="shareToken">Share token</label>
       <input
+        className="input"
         type="text"
         id="shareToken"
         placeholder="three word token"
