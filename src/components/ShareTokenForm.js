@@ -45,7 +45,7 @@ const ShareTokenForm = () => {
         value={selectedToken}
       />
       {/* <button>Join an existing list</button> */}
-      <Button text="Join an existing list" />
+      <Button text="Join existing list" width={'w-52'} />
       {incorrectTokenError && <p>{incorrectTokenError}</p>}
     </form>
   );

@@ -73,7 +73,11 @@ const AddItemForm = () => {
         <label htmlFor="not-soon">not-Soon</label>
       </fieldset>
       <p>{duplicateItemMessage}</p>
-      <Button text={isLoading ? 'adding...' : 'add'} disabled={isLoading} />
+      <Button
+        text={isLoading ? 'adding...' : 'add'}
+        disabled={isLoading}
+        width={'w-40'}
+      />
 
       {successMessage && <p>{successMessage}</p>}
       {error && <p>Could not add the item</p>}

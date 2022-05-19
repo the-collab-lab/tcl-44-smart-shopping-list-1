@@ -24,9 +24,10 @@ const Home = () => {
   return (
     <section>
       <h1>Welcome to your Smart Shopping List</h1>
-      <Button onClick={createToken} text="Create new List" />
 
       {/* <button onClick={createToken}>Create new List</button> */}
+
+      <Button createToken={createToken} text="Create new List" width={'w-52'} />
 
       <p>- or -</p>
       <p>Join an existing shopping list by entering a three word token.</p>

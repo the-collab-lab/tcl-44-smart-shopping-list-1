@@ -1,8 +1,9 @@
-const Button = ({ text, disabled }) => {
+const Button = ({ text, disabled, createToken, width }) => {
   return (
     <button
-      className="bg-yellow-400 text-black font-semibold uppercase px-2 py-2  min-w-1/2 rounded-full font-Roboto"
+      className={`${width} bg-yellow-400 text-black text-sm font-semibold uppercase px-4 py-4 rounded-full font-button hover:bg-transparent outline outline-yellow-400 hover:outline-yellow-400 focus:outline-4`}
       disabled={disabled}
+      onClick={() => createToken()}
     >
       {text}
     </button>
