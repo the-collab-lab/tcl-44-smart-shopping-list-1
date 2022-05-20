@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import useToken from '../hooks/useToken';
+import Button from '../components/Button';
 
 const ShareTokenForm = () => {
   const [incorrectTokenError, setincorrectTokenError] = useState(null);
@@ -44,7 +45,7 @@ const ShareTokenForm = () => {
         onChange={(e) => setSelectedToken(e.target.value)}
         value={selectedToken}
       />
-      <button>Join an existing list</button>
+      <Button text="Join existing list" width={'w-52'} />
       {incorrectTokenError && <p>{incorrectTokenError}</p>}
     </form>
   );
