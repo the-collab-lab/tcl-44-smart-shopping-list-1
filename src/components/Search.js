@@ -5,6 +5,7 @@ const Search = ({ setSearchTerm }) => {
         <label htmlFor="search-input">Filter Items</label>
         <br />
         <input
+          className="input"
           type="search"
           placeholder="Start typing here..."
           name="search-input"
