@@ -94,8 +94,8 @@ const ListItem = ({ itemData }) => {
 
   return (
       <>
-    <li className={`flex items-center justify-between  rounded-2xl w-72 p-3 my-2 ${getItemCategory()}`}>
-      <label htmlFor={itemData.id} className="for-checkbox" >
+    <li className={`flex items-center justify-between rounded-2xl w-72 p-3 my-2 ${getItemCategory()}`}>
+      <label htmlFor={itemData.id} className="for-checkbox">
         <input
           aria-label={getItemCategory()}
           type="checkbox"
@@ -104,11 +104,13 @@ const ListItem = ({ itemData }) => {
           checked={checked}
           onChange={handleChange}
         />
-        <span> {itemData.itemName}</span>{' '}
+        <span> {itemData.itemName}</span>
       </label>
-      <button className='deleteIconStyle' onClick={deleteItem}>
-        <VSCicons.VscTrash/>
-      </button>
+      <div className="text-right">
+        <button className='deleteIconStyle' onClick={deleteItem}>
+          <VSCicons.VscTrash/>
+        </button>
+      </div>
     </li>
  </>
   );
