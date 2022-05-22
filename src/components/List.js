@@ -28,7 +28,7 @@ const List = () => {
               .includes(searchTerm.toLowerCase());
           })
           .map((item) => (
-            <ul key={item.id}>
+            <ul key={item.id} className="flex">
               <ListItem itemData={item} />
             </ul>
           ))}
