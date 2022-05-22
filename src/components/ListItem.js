@@ -104,11 +104,11 @@ const ListItem = ({ itemData }) => {
           checked={checked}
           onChange={handleChange}
         />
-        <span> {itemData.itemName}</span>
+        <span> {itemData.itemName}</span>{' '}
       </label>
-      <span className='deleteIconStyle'>
-        <VSCicons.VscTrash onClick={deleteItem}/>
-      </span>
+      <button className='deleteIconStyle' onClick={deleteItem}>
+        <VSCicons.VscTrash/>
+      </button>
     </li>
  </>
   );
