@@ -1,8 +1,13 @@
 import { getToken } from '@the-collab-lab/shopping-list-utils';
 import { useNavigate, Navigate } from 'react-router-dom';
+//components
 import ShareTokenForm from './ShareTokenForm';
-import useToken from '../hooks/useToken';
 import Button from '../components/Button';
+import Header from './Header';
+//hooks
+import useToken from '../hooks/useToken';
+//images
+import bag from '../assets/images/bag.svg';
 
 const Home = () => {
   let navigate = useNavigate();
@@ -22,14 +27,24 @@ const Home = () => {
   }
 
   return (
-    <section>
-      <h1>Welcome to your Smart Shopping List</h1>
-      <Button createToken={createToken} text="Create new List" width={'w-52'} />
-      <p>- or -</p>
-      <p>Join an existing shopping list by entering a three word token.</p>
+    <>
+      <Header
+        title={'Welcome to your smart shopping list'}
+        imageSrc={bag}
+        isHome={true}
+      />
+      <section>
+        <Button
+          createToken={createToken}
+          text="Create new List"
+          width={'w-52'}
+        />
+        <p>- or -</p>
+        <p>Join an existing shopping list by entering a three word token.</p>
 
-      <ShareTokenForm setToken={setToken} />
-    </section>
+        <ShareTokenForm setToken={setToken} />
+      </section>
+    </>
   );
 };
 
