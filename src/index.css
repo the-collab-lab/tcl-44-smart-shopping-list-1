@@ -11,3 +11,82 @@
 .input {
   @apply border-2 border-blue-300 rounded-full px-4 py-2;
 }
+
+.App {
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+button,
+input {
+  margin: 1em auto 0;
+}
+
+.deleteIconStyle:hover {
+  color: blue;
+  cursor: pointer;
+}
+
+.deleteIconStyle:active {
+  color: red;
+}
+
+label.for-checkbox {
+  display: block;
+  cursor: pointer;
+}
+
+input[type='checkbox'] {
+  position: relative;
+  cursor: pointer;
+  margin: 0;
+  margin-right: 10px;
+}
+
+input[type='checkbox']::before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  border: 1px solid #555555;
+  border-radius: 3px;
+  background-color: white;
+}
+
+input[type='checkbox']:checked:after {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 10px;
+  border: solid black;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  top: 2px;
+  left: 6px;
+}
+
+.category-soon {
+  background-color: #cffafe;
+}
+
+.category-kind-of-soon {
+  background-color: #ddd6fe;
+}
+
+.category-not-soon {
+  background-color: #fef08a;
+}
+
+.category-inactive {
+  background-color: #e5e5e5;
+}
