@@ -1,8 +1,24 @@
-const Header = ({ title, imageSrc }) => {
+const Header = ({ title, imageSrc, isHome }) => {
+  let headerStyles;
+  let titleStyles;
+  if (isHome) {
+    headerStyles = 'bg-yellow-400 w-full text-center relative h-32 mb-32';
+    titleStyles = ' font-bold text-2xl w-1/4 mx-auto mt-4';
+  } else {
+    headerStyles = 'bg-yellow-400 w-full flex justify-center';
+    titleStyles = 'font-bold text-2xl mt-4 mr-4';
+  }
+
   return (
-    <header className="bg-yellow-400 w-full flex justify-center">
-      <h1 className="font-bold text-lg mt-4 mr-4">{title}</h1>
-      <img src={imageSrc} alt="bag-brand" />
+    <header className={headerStyles}>
+      <h1 className={titleStyles}>{title}</h1>
+      <img
+        className={
+          isHome ? 'absolute inset-x-1/2 -translate-x-1/2 -bottom-32 ' : ''
+        }
+        src={imageSrc}
+        alt="bag-brand"
+      />
     </header>
   );
 };

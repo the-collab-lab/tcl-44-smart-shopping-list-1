@@ -1,9 +1,14 @@
+import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
+//components
 import ListItem from './ListItem';
-import useFetchItems from '../hooks/useFetchItems';
 import WelcomingPrompt from './WelcomingPrompt';
 import Search from './Search';
-import { useState } from 'react';
+import Header from './Header';
+//hooks
+import useFetchItems from '../hooks/useFetchItems';
+//images
+import bag from '../assets/images/bag.svg';
 
 const List = () => {
   const { listeningError, isLoading, data } = useFetchItems();
@@ -15,6 +20,7 @@ const List = () => {
 
   return (
     <>
+      <Header title={'Smart Shopping List'} imageSrc={bag} />
       {listeningError && <p>{listeningError}</p>}
       {isLoading && <p>loading...</p>}
       {data && data.length === 0 && <WelcomingPrompt />}
