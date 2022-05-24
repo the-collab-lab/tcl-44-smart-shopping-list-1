@@ -40,7 +40,7 @@ const Home = () => {
           width={'w-52'}
         />
         <p className="pt-8 font-bold">- or -</p>
-        <p className="pt-6 pb-6 font-bold w-64">
+        <p className="py-6 font-bold w-64">
           Join an existing shopping list by entering a three word token.
         </p>
 
