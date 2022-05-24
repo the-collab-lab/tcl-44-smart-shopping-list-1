@@ -15,7 +15,7 @@ const Header = ({ title, imageSrc, isHome }) => {
       <h1 className={titleStyles}>{title}</h1>
       <img
         className={
-          isHome ? 'absolute inset-x-1/2 -translate-x-1/2 -bottom-32 ' : ''
+          isHome ? 'absolute inset-x-1/2 -translate-x-1/2 -bottom-38 ' : ''
         }
         src={imageSrc}
         alt="bag-brand"
