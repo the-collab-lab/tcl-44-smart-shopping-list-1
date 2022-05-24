@@ -33,14 +33,16 @@ const Home = () => {
         imageSrc={bag}
         isHome={true}
       />
-      <section>
+      <section className="flex flex-col text-center pt-16">
         <Button
           createToken={createToken}
           text="Create new List"
           width={'w-52'}
         />
-        <p>- or -</p>
-        <p>Join an existing shopping list by entering a three word token.</p>
+        <p className="pt-8 font-bold">- or -</p>
+        <p className="pt-6 pb-6 font-bold w-64">
+          Join an existing shopping list by entering a three word token.
+        </p>
 
         <ShareTokenForm setToken={setToken} />
       </section>
