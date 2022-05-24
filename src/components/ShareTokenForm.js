@@ -36,14 +36,17 @@ const ShareTokenForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="form">
-      <input
-        className="input mb-4 sm:mb-0"
-        type="text"
-        id="shareToken"
-        placeholder="Enter 3 word token"
-        onChange={(e) => setSelectedToken(e.target.value)}
-        value={selectedToken}
-      />
+      <label htmlFor="shareToken">
+        <input
+          aria-label="share token"
+          className="input mb-4 sm:mb-0"
+          type="text"
+          id="shareToken"
+          placeholder="Enter 3 word token"
+          onChange={(e) => setSelectedToken(e.target.value)}
+          value={selectedToken}
+        />
+      </label>
       <Button text="Join existing list" width={'w-52'} />
       {incorrectTokenError && <p>{incorrectTokenError}</p>}
     </form>
