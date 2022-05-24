@@ -36,12 +36,11 @@ const ShareTokenForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="form">
-      <label htmlFor="shareToken">Share token</label>
       <input
-        className="input"
+        className="input mb-4 sm:mb-0"
         type="text"
         id="shareToken"
-        placeholder="three word token"
+        placeholder="Enter 3 word token"
         onChange={(e) => setSelectedToken(e.target.value)}
         value={selectedToken}
       />
