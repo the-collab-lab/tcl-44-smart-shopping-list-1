@@ -12,7 +12,8 @@ const AddItem = () => {
   return (
     <>
       <Header title={'Smart Shopping List'} imageSrc={bag} />
-      <h2>Add Item</h2>
+
+      <h2 className="text-2xl font-bold my-7">Add Item</h2>
       <AddItemForm />
     </>
   );
