@@ -6,8 +6,6 @@ import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { estimate } from '../utils/estimates';
 //react Icons
 import * as VSCicons from 'react-icons/vsc';
-//css
-import '../App.css';
 
 import {
   calcCurrentDateInSeconds,
