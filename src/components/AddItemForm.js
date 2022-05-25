@@ -91,7 +91,7 @@ const AddItemForm = () => {
 
       {successMessage && <p>{successMessage}</p>}
       {error && <p>Could not add the item</p>}
-      <p>{duplicateItemMessage}</p>
+      <p className="text-red-400">{duplicateItemMessage}</p>
     </form>
   );
 };
