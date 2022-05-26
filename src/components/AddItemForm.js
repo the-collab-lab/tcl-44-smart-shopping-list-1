@@ -27,14 +27,18 @@ const AddItemForm = () => {
   };
   return (
     <form onSubmit={handleSubmit} className="flex flex-col items-centre">
-      <label htmlFor="newItem" className="flex justify-centre">
+      <label
+        htmlFor="item-name"
+        aria-labelledby="item-name"
+        className="flex justify-centre"
+      >
         <input
           className="input"
           type="text"
-          id="newItem"
+          id="item-name"
           value={newItem}
           onChange={handleItemAdd}
-          name="newItem"
+          name="item-name"
           placeholder="Enter an item..."
           required
           ref={newItemInputRef}
@@ -43,7 +47,7 @@ const AddItemForm = () => {
 
       <fieldset className="flex flex-col gap-y-1 mt-4">
         <legend className="text-xl">
-          How soon will you buy this item again ?
+          How soon will you buy this item again?
         </legend>
         <label htmlFor="soon">
           <input
