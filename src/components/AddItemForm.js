@@ -82,16 +82,19 @@ const AddItemForm = () => {
           <span className="ml-2 text-lg">Not soon</span>
         </label>
       </fieldset>
-      <p>{duplicateItemMessage}</p>
       <Button
         text={isLoading ? 'adding...' : 'add'}
         disabled={isLoading}
         width={'w-40'}
       />
 
-      {successMessage && <p>{successMessage}</p>}
-      {error && <p>Could not add the item</p>}
-      <p className="text-red-400">{duplicateItemMessage}</p>
+      {successMessage && (
+        <p className="text-green-600 text-lg mt-4 text-center">
+          {successMessage}
+        </p>
+      )}
+      {error && <p className="error-message">Could not add the item</p>}
+      <p className="error-message">{duplicateItemMessage}</p>
     </form>
   );
 };
