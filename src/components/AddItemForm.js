@@ -92,11 +92,10 @@ const AddItemForm = () => {
         width={'w-40'}
       />
 
-      {successMessage && (
-        <p className="text-green-600 text-lg mt-4 text-center">
-          {successMessage}
-        </p>
-      )}
+      <p className="text-cyan-800 text-lg mt-4 text-center">
+        {successMessage}fufguyfgujygjkyug
+      </p>
+
       {error && <p className="error-message">Could not add the item</p>}
       <p className="error-message">{duplicateItemMessage}</p>
     </form>
