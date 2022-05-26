@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@tailwindcss/forms": "^0.5.2",
     "@the-collab-lab/shopping-list-utils": "^1.0.3",
     "firebase": "^9.6.10",
     "react": "^17.0.1",
