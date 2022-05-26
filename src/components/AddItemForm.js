@@ -27,14 +27,18 @@ const AddItemForm = () => {
   };
   return (
     <form onSubmit={handleSubmit} className="flex flex-col items-centre">
-      <label htmlFor="newItem" className="flex justify-centre">
+      <label
+        htmlFor="item-name"
+        aria-labelledby="item-name"
+        className="flex justify-centre"
+      >
         <input
           className="input"
           type="text"
-          id="newItem"
+          id="item-name"
           value={newItem}
           onChange={handleItemAdd}
-          name="newItem"
+          name="item-name"
           placeholder="Enter an item..."
           required
           ref={newItemInputRef}
@@ -43,11 +47,11 @@ const AddItemForm = () => {
 
       <fieldset className="flex flex-col gap-y-1 mt-4">
         <legend className="text-xl">
-          How soon will you buy this item again ?
+          How soon will you buy this item again?
         </legend>
         <label htmlFor="soon">
           <input
-            className="border-2 border-cyan-500 form-radio text-cyan-500 h-5 w-5 mb-5"
+            className="radio-buttons"
             type="radio"
             id="soon"
             value="7"
@@ -59,7 +63,7 @@ const AddItemForm = () => {
         </label>
         <label htmlFor="kind-of-soon">
           <input
-            className="border-2 border-cyan-500 form-radio text-cyan-500 h-5 w-5 mb-5"
+            className="radio-buttons"
             type="radio"
             id="kind-of-soon"
             value="14"
@@ -71,7 +75,7 @@ const AddItemForm = () => {
         </label>
         <label htmlFor="not-soon">
           <input
-            className="border-2 border-cyan-500 form-radio text-cyan-500 h-5 w-5 mb-5"
+            className="radio-buttons"
             type="radio"
             id="not-soon"
             value="30"
@@ -82,16 +86,20 @@ const AddItemForm = () => {
           <span className="ml-2 text-lg">Not soon</span>
         </label>
       </fieldset>
-      <p>{duplicateItemMessage}</p>
       <Button
         text={isLoading ? 'adding...' : 'add'}
         disabled={isLoading}
         width={'w-40'}
       />
 
-      {successMessage && <p>{successMessage}</p>}
-      {error && <p>Could not add the item</p>}
-      <p className="text-red-400">{duplicateItemMessage}</p>
+      {successMessage && (
+        <p className="text-cyan-800 text-lg mt-4 text-center">
+          {successMessage}
+        </p>
+      )}
+
+      {error && <p className="error-message">Could not add the item</p>}
+      <p className="error-message">{duplicateItemMessage}</p>
     </form>
   );
 };
