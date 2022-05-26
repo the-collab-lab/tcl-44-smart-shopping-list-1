@@ -21,7 +21,7 @@ const List = () => {
   return (
     <>
       <Header title={'Smart Shopping List'} imageSrc={bag} />
-      {listeningError && <p>{listeningError}</p>}
+      {listeningError && <p className="error-message">{listeningError}</p>}
       {isLoading && <p>loading...</p>}
       {data && data.length === 0 && <WelcomingPrompt />}
       {data && data.length !== 0 && <Search setSearchTerm={setSearchTerm} />}
@@ -31,7 +31,7 @@ const List = () => {
           .filter((item) => {
             return item.itemName
               .toLowerCase()
-              .includes(searchTerm.toLowerCase());
+              .includes(searchTerm.trim().toLowerCase());
           })
           .map((item) => (
             <ul key={item.id} className="flex">
