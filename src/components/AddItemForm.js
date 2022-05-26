@@ -47,7 +47,7 @@ const AddItemForm = () => {
         </legend>
         <label htmlFor="soon">
           <input
-            className="border-2 border-cyan-500 form-radio text-cyan-500 h-5 w-5 mb-5"
+            className="radio-buttons"
             type="radio"
             id="soon"
             value="7"
@@ -59,7 +59,7 @@ const AddItemForm = () => {
         </label>
         <label htmlFor="kind-of-soon">
           <input
-            className="border-2 border-cyan-500 form-radio text-cyan-500 h-5 w-5 mb-5"
+            className="radio-buttons"
             type="radio"
             id="kind-of-soon"
             value="14"
@@ -71,7 +71,7 @@ const AddItemForm = () => {
         </label>
         <label htmlFor="not-soon">
           <input
-            className="border-2 border-cyan-500 form-radio text-cyan-500 h-5 w-5 mb-5"
+            className="radio-buttons"
             type="radio"
             id="not-soon"
             value="30"

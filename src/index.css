@@ -9,7 +9,11 @@
 }
 
 .input {
-  @apply border-2 border-blue-300 rounded-full px-4 py-2;
+  @apply border-2 border-cyan-500 rounded-full px-4 py-2 focus:outline-none;
+}
+
+.radio-buttons {
+  @apply border-2 border-cyan-500 form-radio text-cyan-500 h-5 w-5 mb-5;
 }
 
 .App {
