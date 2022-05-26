@@ -21,23 +21,26 @@ const List = () => {
   return (
     <>
       <Header title={'Smart Shopping List'} imageSrc={bag} />
-      {listeningError && <p>{listeningError}</p>}
-      {isLoading && <p>loading...</p>}
-      {data && data.length === 0 && <WelcomingPrompt />}
-      {data && data.length !== 0 && <Search setSearchTerm={setSearchTerm} />}
+      <section className="mb-24">
+        {listeningError && <p>{listeningError}</p>}
+        {isLoading && <p>loading...</p>}
+        {data && data.length === 0 && <WelcomingPrompt />}
+        {data && data.length !== 0 && <Search setSearchTerm={setSearchTerm} />}
 
-      {data &&
-        data
-          .filter((item) => {
-            return item.itemName
-              .toLowerCase()
-              .includes(searchTerm.toLowerCase());
-          })
-          .map((item) => (
-            <ul key={item.id} className="flex">
-              <ListItem itemData={item} />
-            </ul>
-          ))}
+        {data &&
+          data
+            .filter((item) => {
+              return item.itemName
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase());
+            })
+
+            .map((item) => (
+              <ul key={item.id} className="flex">
+                <ListItem itemData={item} />
+              </ul>
+            ))}
+      </section>
     </>
   );
 };
