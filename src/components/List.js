@@ -9,6 +9,7 @@ import Header from './Header';
 import useFetchItems from '../hooks/useFetchItems';
 //images
 import bag from '../assets/images/bag.svg';
+import loading from '../assets/images/loading.svg';
 
 const List = () => {
   const { listeningError, isLoading, data } = useFetchItems();
@@ -22,8 +23,15 @@ const List = () => {
     <>
       <Header title={'Smart Shopping List'} imageSrc={bag} />
       <section className="mb-24">
+        <h2 className="text-2xl font-bold my-4 text-center">My Items</h2>
         {listeningError && <p className="error-message">{listeningError}</p>}
-        {isLoading && <p>loading...</p>}
+        {isLoading && (
+          <img
+            className="h-10 w-10 mt-2.5 animate-spin relative left-8"
+            src={loading}
+            alt="loading icon"
+          />
+        )}
         {data && data.length === 0 && <WelcomingPrompt />}
         {data && data.length !== 0 && <Search setSearchTerm={setSearchTerm} />}
 
