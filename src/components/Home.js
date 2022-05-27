@@ -39,8 +39,8 @@ const Home = () => {
           text="Create new List"
           width={'w-52'}
         />
-        <p className="pt-8 font-bold">- or -</p>
-        <p className="py-6 font-bold w-64">
+        <p className="pt-8 font-bold text-xl">- or -</p>
+        <p className="py-6 font-bold text-xl w-64">
           Join an existing shopping list by entering a three word token.
         </p>
 
