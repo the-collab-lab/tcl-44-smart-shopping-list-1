@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { db } from '../lib/firebase';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, doc, deleteDoc } from 'firebase/firestore';
 import useFetchItems from './useFetchItems';
 import {
   checkDuplication,
@@ -45,10 +45,30 @@ const useAddItem = (reference) => {
     }
   };
 
+  const deleteItem = async (id) => {
+    try {
+      const docRef = doc(db, 'Lists', id);
+      if (window.confirm('Are you sure you want to delete this item?')) {
+        await deleteDoc(docRef);
+      } else {
+        return;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     return () => setIsCancelled(true);
   }, []);
-  return { addItem, isLoading, successMessage, error, duplicateItemMessage };
+  return {
+    addItem,
+    deleteItem,
+    isLoading,
+    successMessage,
+    error,
+    duplicateItemMessage,
+  };
 };
 
 export default useAddItem;

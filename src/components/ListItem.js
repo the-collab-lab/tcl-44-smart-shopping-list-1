@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 //firebase
 import { db } from '../lib/firebase';
-import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 //utils
 import { estimate } from '../utils/estimates';
 //react Icons
@@ -12,9 +12,12 @@ import {
   oneDayInSeconds,
   getDaysSinceLastTransaction,
 } from '../utils/dateHelpers';
+import useAddItem from '../hooks/useAddItem';
 
 const ListItem = ({ itemData }) => {
   const [checked, setChecked] = useState(itemData.lastPurchased !== null);
+  const { deleteItem } = useAddItem();
+  const docRef = doc(db, 'Lists', itemData.id);
 
   const nowMinusLastPurchased = () => {
     return (
@@ -29,9 +32,6 @@ const ListItem = ({ itemData }) => {
     return nowMinusLastPurchased() <= oneDayInSeconds;
   };
 
-  //doc reference for an item
-  const docRef = doc(db, 'Lists', itemData.id);
-
   useEffect(() => {
     if (itemData.lastPurchased === null) {
       return false;
@@ -41,7 +41,6 @@ const ListItem = ({ itemData }) => {
     }
 
     if (getDaysSinceLastTransaction(itemData) > itemData.timeframe * 2) {
-      const docRef = doc(db, 'Lists', itemData.id);
       updateDoc(docRef, {
         isActive: false,
       });
@@ -49,15 +48,6 @@ const ListItem = ({ itemData }) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemData]);
-
-  //Brings up a confirmation prompt before deleting the item, and if confirmed, deletes the item.
-  const deleteItem = async () => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
-      await deleteDoc(docRef);
-    } else {
-      return;
-    }
-  };
 
   const getItemCategory = () => {
     const daysSinceLastTransaction = getDaysSinceLastTransaction(itemData);
@@ -100,7 +90,10 @@ const ListItem = ({ itemData }) => {
           <span> {itemData.itemName}</span>
         </label>
         <div className="text-right">
-          <button className="deleteIconStyle" onClick={deleteItem}>
+          <button
+            className="deleteIconStyle"
+            onClick={() => deleteItem(itemData.id)}
+          >
             <VSCicons.VscTrash />
           </button>
         </div>
