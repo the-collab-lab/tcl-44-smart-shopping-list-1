@@ -2,21 +2,21 @@ import { useEffect, useState } from 'react';
 //firebase
 import { db } from '../lib/firebase';
 import { doc, updateDoc } from 'firebase/firestore';
+//hooks
+import useFirestore from '../hooks/useFirestore';
 //utils
 import { estimate } from '../utils/estimates';
-//react Icons
-import * as VSCicons from 'react-icons/vsc';
-
 import {
   calcCurrentDateInSeconds,
   oneDayInSeconds,
   getDaysSinceLastTransaction,
 } from '../utils/dateHelpers';
-import useAddItem from '../hooks/useAddItem';
+//react Icons
+import * as VSCicons from 'react-icons/vsc';
 
 const ListItem = ({ itemData }) => {
   const [checked, setChecked] = useState(itemData.lastPurchased !== null);
-  const { deleteItem } = useAddItem();
+  const { deleteItem } = useFirestore();
   const docRef = doc(db, 'Lists', itemData.id);
 
   const nowMinusLastPurchased = () => {

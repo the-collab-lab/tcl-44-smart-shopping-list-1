@@ -24,24 +24,21 @@ export const checkDuplication = (items, newItem) => {
 };
 
 //Set error message and erase it after 3 sec and focus text input
-export const showErrorMessage = (
-  reference,
-  setIsLoading,
-  setDuplicateItemMessage,
-) => {
-  setIsLoading(false);
-  setDuplicateItemMessage('Item already added. Try another one.');
+export const showErrorMessage = (reference, dispatch) => {
+  dispatch({
+    type: 'DUPLICATED_ITEM',
+    payload: 'Item already added. Try another one.',
+  });
   reference.current.focus();
   setTimeout(() => {
-    setDuplicateItemMessage('');
+    dispatch({ type: 'RESET_MESSAGE' });
   }, 3000);
 };
 
 // set the success message to infor the user that the item is added, and erase it after 3 sec
-export const showSuccessMessage = (reference, setSuccessMessage) => {
-  setSuccessMessage('Item added');
+export const showSuccessMessage = (reference, dispatch) => {
   reference.current.focus();
   setTimeout(() => {
-    setSuccessMessage('');
+    dispatch({ type: 'RESET_MESSAGE' });
   }, 3000);
 };

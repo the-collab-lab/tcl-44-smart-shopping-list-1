@@ -1,29 +1,58 @@
-import { useState } from 'react';
+import { useState, useEffect, useReducer } from 'react';
+//firestore
 import { db } from '../lib/firebase';
 import { addDoc, collection, doc, deleteDoc } from 'firebase/firestore';
+//helpers
 import useFetchItems from './useFetchItems';
 import {
   checkDuplication,
   showErrorMessage,
   showSuccessMessage,
 } from '../utils/helpers';
-import { useEffect } from 'react';
 
-const useAddItem = (reference) => {
+const firestoreReducer = (state, action) => {
+  switch (action.type) {
+    case 'IS_LOADING':
+      return { ...state, isLoading: true, error: null };
+    case 'DUPLICATED_ITEM':
+      return {
+        ...state,
+        isLoading: false,
+        duplicateItemMessage: action.payload,
+      };
+    case 'DOCUMENT_ADDED':
+      return {
+        ...state,
+        isLoading: false,
+        error: null,
+        successMessage: 'Item added',
+      };
+    case 'RESET_MESSAGE':
+      return { ...state, duplicateItemMessage: '', successMessage: '' };
+    case 'ERROR':
+      return { ...state, isLoading: false, error: true, successMessage: '' };
+  }
+};
+
+const initialState = {
+  isLoading: false,
+  error: null,
+  successMessage: '',
+  duplicateItemMessage: '',
+};
+
+const useFirstore = (reference) => {
+  const [state, dispatch] = useReducer(firestoreReducer, initialState);
   const [isCancelled, setIsCancelled] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState('');
-  const [duplicateItemMessage, setDuplicateItemMessage] = useState('');
   const { data: items } = useFetchItems();
 
   const addItem = async (newItem, timeframe, token, lastPurchased = null) => {
-    setIsLoading(true);
+    dispatch({ type: 'IS_LOADING' });
     try {
       const ListRef = collection(db, 'Lists');
 
       if (checkDuplication(items, newItem)) {
-        showErrorMessage(reference, setIsLoading, setDuplicateItemMessage);
+        showErrorMessage(reference, dispatch);
       } else {
         const addedDocument = await addDoc(ListRef, {
           itemName: newItem,
@@ -34,14 +63,12 @@ const useAddItem = (reference) => {
           isActive: true,
         });
         if (addedDocument && isCancelled === false) {
-          setIsLoading(false);
-          showSuccessMessage(reference, setSuccessMessage);
-          setError(false);
+          dispatch({ type: 'DOCUMENT_ADDED' });
+          showSuccessMessage(reference, dispatch);
         }
       }
     } catch (e) {
-      setError(true);
-      setSuccessMessage(null);
+      dispatch({ type: 'ERROR' });
     }
   };
 
@@ -54,6 +81,7 @@ const useAddItem = (reference) => {
         return;
       }
     } catch (e) {
+      dispatch({ action: 'ERROR' });
       console.log(e);
     }
   };
@@ -64,11 +92,8 @@ const useAddItem = (reference) => {
   return {
     addItem,
     deleteItem,
-    isLoading,
-    successMessage,
-    error,
-    duplicateItemMessage,
+    state,
   };
 };
 
-export default useAddItem;
+export default useFirstore;
