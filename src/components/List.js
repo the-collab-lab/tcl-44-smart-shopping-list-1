@@ -22,6 +22,7 @@ const List = () => {
     <>
       <Header title={'Smart Shopping List'} imageSrc={bag} />
       <section className="mb-24">
+        <h2 className="text-2xl font-bold my-7 text-center">My Items</h2>
         {listeningError && <p className="error-message">{listeningError}</p>}
         {isLoading && <p>loading...</p>}
         {data && data.length === 0 && <WelcomingPrompt />}
