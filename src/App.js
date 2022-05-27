@@ -10,7 +10,7 @@ import TokenProvider from './context/tokenContext';
 function App() {
   return (
     <TokenProvider>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center text-stone-700">
         <BrowserRouter>
           <Navbar />
           <Routes>
