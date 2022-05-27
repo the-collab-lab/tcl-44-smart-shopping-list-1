@@ -33,7 +33,7 @@ const Home = () => {
         imageSrc={bag}
         isHome={true}
       />
-      <section className="flex flex-col text-center pt-16">
+      <section className="flex flex-col text-center">
         <Button
           createToken={createToken}
           text="Create new List"
