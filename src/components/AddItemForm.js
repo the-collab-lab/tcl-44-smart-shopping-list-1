@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import useToken from '../hooks/useToken';
-import useAddItem from '../hooks/useAddItem';
+import useFirestore from '../hooks/useFirestore';
 import Button from '../components/Button';
 
 const AddItemForm = () => {
@@ -9,8 +9,8 @@ const AddItemForm = () => {
   const newItemInputRef = useRef(null);
 
   const { token } = useToken();
-  const { addItem, isLoading, successMessage, error, duplicateItemMessage } =
-    useAddItem(newItemInputRef);
+  const { addItem, state } = useFirestore(newItemInputRef);
+  const { isLoading, successMessage, error, duplicateItemMessage } = state;
 
   const handleSelect = (e) => {
     setTimframe(e.target.value);
