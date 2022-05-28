@@ -15,7 +15,7 @@ import pineapple from '../src/assets/background-images/pineapple.svg';
 function App() {
   return (
     <TokenProvider>
-      <div className="flex flex-col items-center text-stone-700 w-full lg:w-1/2 min-h-screen mx-auto shadow-xl bg-white">
+      <div className="flex flex-col items-center text-stone-700 w-full lg:w-1/2 min-h-screen mx-auto shadow-xl bg-yellow-400">
         <img
           src={lemon}
           width="250px"

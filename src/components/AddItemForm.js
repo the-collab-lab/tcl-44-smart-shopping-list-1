@@ -26,7 +26,10 @@ const AddItemForm = () => {
     setNewItem('');
   };
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col items-centre">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col items-centre mx-auto w-1/2"
+    >
       <label
         htmlFor="item-name"
         aria-labelledby="item-name"

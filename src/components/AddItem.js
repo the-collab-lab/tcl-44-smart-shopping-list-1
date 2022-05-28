@@ -12,7 +12,7 @@ const AddItem = () => {
   return (
     <>
       <Header title={'Smart Shopping List'} imageSrc={bag} />
-      <section className="rounded-2xl ">
+      <section className="section-radius">
         <h2 className="text-2xl font-bold my-7 text-center">Add Item</h2>
         <AddItemForm />
       </section>

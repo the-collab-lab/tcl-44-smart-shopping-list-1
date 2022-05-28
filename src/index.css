@@ -20,6 +20,10 @@
   @apply text-red-600 text-lg mt-4 text-center;
 }
 
+.section-radius {
+  @apply w-full flex-1 rounded-t-3xl bg-white shadow-[0px_-2px_13px_-9px_#000000];
+}
+
 .App {
   text-align: center;
 }
