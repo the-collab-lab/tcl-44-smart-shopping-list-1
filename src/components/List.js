@@ -27,7 +27,7 @@ const List = () => {
         {listeningError && <p className="error-message">{listeningError}</p>}
         {isLoading && (
           <img
-            className="h-10 w-10 mt-2.5 animate-spin relative left-8"
+            className="h-10 w-10 mt-2.5 animate-spin mx-auto"
             src={loading}
             alt="loading icon"
           />
