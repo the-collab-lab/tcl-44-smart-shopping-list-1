@@ -76,7 +76,7 @@ const ListItem = ({ itemData }) => {
   return (
     <>
       <li
-        className={`flex items-center justify-between rounded-2xl w-72 p-3 my-2 ${getItemCategory()}`}
+        className={`flex items-center w-7/12 mx-auto justify-between rounded-2xl p-3 my-2 ${getItemCategory()}`}
       >
         <label htmlFor={itemData.id} className="for-checkbox">
           <input

@@ -2,9 +2,8 @@ const Header = ({ title, imageSrc, isHome }) => {
   let headerStyles;
   let titleStyles;
   if (isHome) {
-    headerStyles = 'bg-yellow-400 w-full text-center relative h-32 mb-32';
-    titleStyles =
-      ' font-bold text-2xl w-1/4 mx-auto mt-4 w-1/2 lg:w-1/4 2xl:w-full';
+    headerStyles = 'bg-yellow-400 w-full text-center relative h-32';
+    titleStyles = 'font-bold text-2xl mx-auto mt-4 w-full lg:w-1/2 ';
   } else {
     headerStyles = 'bg-yellow-400 w-full flex justify-center';
     titleStyles = 'font-bold text-2xl mt-4 mr-4 pl-2 sm:pl-0';

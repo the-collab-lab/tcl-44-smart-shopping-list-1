@@ -22,12 +22,12 @@ const List = () => {
   return (
     <>
       <Header title={'Smart Shopping List'} imageSrc={bag} />
-      <section className="mb-24">
+      <section className="pb-24 section-radius">
         <h2 className="text-2xl font-bold my-4 text-center">My Items</h2>
         {listeningError && <p className="error-message">{listeningError}</p>}
         {isLoading && (
           <img
-            className="h-10 w-10 mt-2.5 animate-spin relative left-8"
+            className="h-10 w-10 mt-2.5 animate-spin mx-auto"
             src={loading}
             alt="loading icon"
           />
